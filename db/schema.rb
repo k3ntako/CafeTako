@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_16_194819) do
+ActiveRecord::Schema.define(version: 2019_07_16_203710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,25 @@ ActiveRecord::Schema.define(version: 2019_07_16_194819) do
     t.jsonb "hours", default: "{}", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.string "title", null: false
+    t.integer "score", null: false
+    t.boolean "music"
+    t.string "review", default: ""
+    t.integer "seating"
+    t.integer "bathroom_count"
+    t.integer "noise_level"
+    t.integer "wifi_speed"
+    t.bigint "location_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bathroom_count"], name: "index_reviews_on_bathroom_count"
+    t.index ["location_id"], name: "index_reviews_on_location_id"
+    t.index ["noise_level"], name: "index_reviews_on_noise_level"
+    t.index ["seating"], name: "index_reviews_on_seating"
+    t.index ["wifi_speed"], name: "index_reviews_on_wifi_speed"
   end
 
 end
