@@ -3,8 +3,10 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :locations, only: [:index]
+      resources :locations, only: [:index, :create]
       resources :reviews, only: [:index]
     end
   end
+
+  get '/locations/new', to: 'home#index'
 end
