@@ -2,7 +2,12 @@ class Api::V1::LocationsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    render json: Location.all
+    limit = limit_param[:limit]
+    if !limit.is_a? Numeric
+      limit = 20
+    end
+    
+    render json: Location.all.limit(limit)
   end
 
   def create
@@ -16,6 +21,10 @@ class Api::V1::LocationsController < ApplicationController
   end
 
   private
+
+  def limit_param
+    params.permit(:limit)
+  end
 
   def location_params
     params.permit(:name, :address, :hours)
