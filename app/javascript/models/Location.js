@@ -3,11 +3,15 @@ import FetchHelper from './FetchHelper';
 export default class Location{
   constructor( props ){
     const { name, address, hours, id } = props;
+    let hoursObject = hours
+    if( hoursObject && typeof hoursObject === "string" ){
+      hoursObject = JSON.parse(hoursObject);
+    }
 
     this._id = id;
     this._name = name;
     this._address = address;
-    this._hours = hours || {};
+    this._hours = hoursObject || {};
   }
 
   get id(){
@@ -47,6 +51,13 @@ export default class Location{
         return new Location( location );
       })
     });
+  }
+
+  static get( id ){
+    return FetchHelper.get('/api/v1/locations/' + id, {
+      id
+    })
+    .then(responseJSON => responseJSON);
   }
 
 }

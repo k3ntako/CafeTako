@@ -6,7 +6,7 @@ class Api::V1::LocationsController < ApplicationController
     if !limit.is_a? Numeric
       limit = 20
     end
-    
+
     render json: Location.all.limit(limit)
   end
 
@@ -20,10 +20,19 @@ class Api::V1::LocationsController < ApplicationController
     end
   end
 
+  def show
+    location = Location.find(id_param[:id])
+    render json: location
+  end
+
   private
 
   def limit_param
     params.permit(:limit)
+  end
+
+  def id_param
+    params.permit(:id)
   end
 
   def location_params
