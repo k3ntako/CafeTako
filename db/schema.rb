@@ -10,15 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_16_214526) do
+ActiveRecord::Schema.define(version: 2019_07_17_232435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "business_hours", force: :cascade do |t|
+    t.integer "open_time"
+    t.integer "close_time"
+    t.index ["close_time"], name: "index_business_hours_on_close_time"
+    t.index ["open_time"], name: "index_business_hours_on_open_time"
+  end
+
   create_table "locations", force: :cascade do |t|
     t.string "name", null: false
     t.string "address", null: false
-    t.jsonb "hours", default: "{}", null: false
+    t.jsonb "business_hours", default: {"friday"=>nil, "monday"=>nil, "sunday"=>nil, "tuesday"=>nil, "saturday"=>nil, "thursday"=>nil, "wednesday"=>nil}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -28,10 +35,12 @@ ActiveRecord::Schema.define(version: 2019_07_16_214526) do
     t.integer "score", null: false
     t.boolean "music"
     t.string "review", default: ""
-    t.integer "seating"
+    t.integer "seating_count"
     t.integer "bathroom_count"
     t.integer "noise_level"
     t.integer "wifi_speed"
+    t.integer "start_time"
+    t.integer "end_time"
     t.bigint "location_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -39,7 +48,7 @@ ActiveRecord::Schema.define(version: 2019_07_16_214526) do
     t.index ["bathroom_count"], name: "index_reviews_on_bathroom_count"
     t.index ["location_id"], name: "index_reviews_on_location_id"
     t.index ["noise_level"], name: "index_reviews_on_noise_level"
-    t.index ["seating"], name: "index_reviews_on_seating"
+    t.index ["seating_count"], name: "index_reviews_on_seating_count"
     t.index ["user_id"], name: "index_reviews_on_user_id"
     t.index ["wifi_speed"], name: "index_reviews_on_wifi_speed"
   end

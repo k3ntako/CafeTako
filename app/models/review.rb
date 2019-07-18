@@ -3,12 +3,12 @@ class Review < ApplicationRecord
   validates :score, presence: true
   validates_inclusion_of :score, :in => 1..5
   validates :score, presence: true
-  validates :music, inclusion: { in: [true, false] }
+  validates :music, inclusion: { in: [true, false, nil] }
 
   # Enum https://www.sitepoint.com/enumerated-types-with-activerecord-and-postgresql/
   # Enum has to be unique between enums
   # Cannot have two mediums
-  enum seating: {
+  enum seating_count: {
     seating_none: 0,
     seating_very_small: 1,
     seating_small: 2,

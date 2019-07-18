@@ -28,7 +28,7 @@ export default class AddLocationForm extends Component {
     Location.create({
       name: this.state.name,
       address: this.state.address,
-      hours: {},
+      businessHours: {},
     })
   }
 

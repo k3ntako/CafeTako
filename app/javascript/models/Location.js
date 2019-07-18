@@ -2,16 +2,13 @@ import FetchHelper from './FetchHelper';
 
 export default class Location{
   constructor( props ){
-    const { name, address, hours, id } = props;
-    let hoursObject = hours
-    if( hoursObject && typeof hoursObject === "string" ){
-      hoursObject = JSON.parse(hoursObject);
-    }
+    const { id, name, address, businessHours, reviews } = props;
 
     this._id = id;
     this._name = name;
     this._address = address;
-    this._hours = hoursObject || {};
+    this._businessHours = businessHours || {};
+    this._reviews = reviews || [];
   }
 
   get id(){
@@ -23,12 +20,12 @@ export default class Location{
   get address(){
     return this._address;
   }
-  get hours(){
-    return this._hours;
+  get businessHours(){
+    return this._businessHours;
   }
 
   static create( props ){
-    const { name, address, hours } = props;
+    const { name, address, businessHours } = props;
 
     if( !name || !address){
       console.error("Invalid name or address.");
@@ -36,7 +33,7 @@ export default class Location{
     }
 
     return FetchHelper.post('/api/v1/locations', {
-      name, address, hours
+      name, address, businessHours
     }).then(response => {
       return new Location( props );
     });
@@ -58,6 +55,10 @@ export default class Location{
       id
     })
     .then(responseJSON => responseJSON);
+  }
+
+  addReview( review ){
+    this._reviwews.push(review);
   }
 
 }

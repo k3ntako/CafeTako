@@ -1,7 +1,7 @@
 class Location < ApplicationRecord
   validates :name, presence: true
   validates :address, presence: true, uniqueness: true
-  validates :hours, presence: true
+  validates :business_hours, null: false
 
   has_many :reviews
 end

@@ -11,9 +11,9 @@ class Api::V1::LocationsController < ApplicationController
   end
 
   def create
-    new_location = Location.new(location_params)
+    new_location = Location.new(new_location_params)
 
-    if new_location.save
+    if new_location.save!
       render json: { okay: true }
     else
       render json: { okay: false, error: "Failed to create new location: #{new_location.errors.full_messages[0]}" }
@@ -35,7 +35,7 @@ class Api::V1::LocationsController < ApplicationController
     params.permit(:id)
   end
 
-  def location_params
-    params.permit(:name, :address, :hours)
+  def new_location_params
+    params.permit(:name, :address)
   end
 end

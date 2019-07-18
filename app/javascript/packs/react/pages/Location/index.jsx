@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter } from 'react-router-dom';
 
+import AddReviewForm from './AddReviewForm';
 import Location from '../../../../models/Location';
 
 class LocationPage extends Component{
@@ -26,11 +27,7 @@ class LocationPage extends Component{
     }
 
     return <>
-      <div>
-        <Link to={ "/locations/" + location.id }>
-          {location.name}
-        </Link>
-      </div>
+      <h3>{location.name}</h3>
       <div>{location.address}</div>
     </>
   }
@@ -38,6 +35,8 @@ class LocationPage extends Component{
   render(){
     return <div>
       {this.renderLocation()}
+      <h3>Add a Review</h3>
+      <AddReviewForm />
     </div>
   }
 }
