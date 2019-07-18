@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link, withRouter } from 'react-router-dom';
 
 import AddReviewForm from './AddReviewForm';
+import Reviews from './Reviews';
 import Location from '../../../../models/Location';
 
 class LocationPage extends Component{
@@ -33,10 +34,13 @@ class LocationPage extends Component{
   }
 
   render(){
+    const { location } = this.state;
     return <div>
       {this.renderLocation()}
       <h3>Add a Review</h3>
       <AddReviewForm />
+      <h3>Reviews</h3>
+      <Reviews reviews={location && location.reviews} />
     </div>
   }
 }
