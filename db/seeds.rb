@@ -17,3 +17,18 @@ Location.create({
   name: "Kentaro's Cafe",
   address: "1 Main St. Brooklyn, NY 11217",
 })
+
+Review.create({
+  title: "Amazing!",
+  score: 5,
+  music: false,
+  review: "One of the best places to study. Clean bathroom and there are always seats available.",
+  seating_count: "medium",
+  bathroom_count: "two",
+  noise_level: "quiet",
+  wifi_speed: "average",
+  start_time: 420,
+  end_time: 1320,
+  location_id: 1,
+  user_id: 1,
+})

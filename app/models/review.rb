@@ -9,41 +9,41 @@ class Review < ApplicationRecord
   # Enum has to be unique between enums
   # Cannot have two mediums
   enum seating_count: {
-    seating_none: 0,
-    seating_very_small: 1,
-    seating_small: 2,
-    seating_medium: 3,
-    seating_large: 4,
-    seating_very_large: 5,
-  }
+    none: 0,
+    very_small: 1,
+    small: 2,
+    medium: 3,
+    large: 4,
+    very_large: 5
+  }, _prefix: :seating
 
-  enum bathrom_count: {
-    bathroom_none: 0,
-    bathroom_one: 1,
-    bathroom_two: 2,
-    bathroom_three: 3,
-    bathroom_four: 4,
-    bathroom_five_seven: 5,
-    bathroom_eight_ten: 6,
-    bathroom_elevent_fifteen: 7,
-    bathroom_sixteen_twenty: 8,
-    bathroom_twenty_one_plus: 9
-  }
+  enum bathroom_count: {
+    none: 0,
+    one: 1,
+    two: 2,
+    three: 3,
+    four: 4,
+    five_seven: 5,
+    eight_ten: 6,
+    elevent_fifteen: 7,
+    sixteen_twenty: 8,
+    twenty_one_plus: 9
+  }, _prefix: :bathroom
 
-  enum noise_levels: {
-    noise_silent: 0,
-    noise_quiet: 1,
-    noise_medium: 2,
-    noise_loud: 3,
-    noise_very_loud: 4,
-  }
+  enum noise_level: {
+    silent: 0,
+    quiet: 1,
+    medium: 2,
+    loud: 3,
+    very_loud: 4
+  }, _prefix: :noise
 
   enum wifi_speed: {
-    wifi_none: 0,
-    wifi_slow: 1,
-    wifi_medium: 2,
-    wifi_fast: 3,
-  }
+    none: 0,
+    slow: 1,
+    average: 2,
+    fast: 3
+  }, _prefix: :wifi
 
   belongs_to :location
   belongs_to :user

@@ -5,6 +5,7 @@ import TimePicker from './TimePicker';
 import FormSelect from './FormSelect';
 import CustomDate from '../../../../models/CustomDate';
 import Review from '../../../../models/Review';
+import { scoreOptions, seatingOptions, bathroomOptions, noiseOptions, wifiOptions, musicOptions } from '../../utilities/selectOptions';
 
 class AddReviewForm extends Component {
   constructor(props){
@@ -16,7 +17,9 @@ class AddReviewForm extends Component {
         music: null,
         seatingCount: null,
         bathroomCount: null,
+        music: null,
         noiseLevel: null,
+        wifiSpeed: null,
         startTime: new CustomDate({ hour: 12, minute: 0, amPM: "pm" }),
         endTime: new CustomDate({ hour: 12, minute: 30, amPM: "pm" }),
         review: "",
@@ -59,7 +62,7 @@ class AddReviewForm extends Component {
       <div>
         <label>Review Score</label>
         <FormSelect
-          defaultValue={reviewProps.score || "not-selected"}
+          defaultValue={reviewProps.score || "not_selected"}
           onChange={(e) => this.updateReview("score", e.target.value)}
           options={scoreOptions}
           disableFirst />
@@ -69,7 +72,7 @@ class AddReviewForm extends Component {
       <div>
         <label>Seating</label>
         <FormSelect
-          defaultValue={reviewProps.seatingCount || "not-selected"}
+          defaultValue={reviewProps.seatingCount || "not_selected"}
           onChange={(e) => this.updateReview("seatingCount", e.target.value)}
           options={seatingOptions}
           disableFirst />
@@ -77,9 +80,33 @@ class AddReviewForm extends Component {
       <div>
         <label>Bathroom Stall Count</label>
         <FormSelect
-          defaultValue={reviewProps.bathroomCount || "not-selected"}
+          defaultValue={reviewProps.bathroomCount || "not_selected"}
           onChange={(e) => this.updateReview("bathroomCount", e.target.value)}
           options={bathroomOptions}
+          disableFirst />
+      </div>
+      <div>
+        <label>Do they play music?</label>
+        <FormSelect
+          defaultValue={reviewProps.music || "not_selected"}
+          onChange={(e) => this.updateReview("music", e.target.value)}
+          options={musicOptions}
+          disableFirst />
+      </div>
+      <div>
+        <label>Noise Level</label>
+        <FormSelect
+          defaultValue={reviewProps.noiseLevel || "not_selected"}
+          onChange={(e) => this.updateReview("noiseLevel", e.target.value)}
+          options={noiseOptions}
+          disableFirst />
+      </div>
+      <div>
+        <label>Wifi</label>
+        <FormSelect
+          defaultValue={reviewProps.wifiSpeed || "not_selected"}
+          onChange={(e) => this.updateReview("wifiSpeed", e.target.value)}
+          options={wifiOptions}
           disableFirst />
       </div>
       <div>
@@ -94,37 +121,3 @@ class AddReviewForm extends Component {
 }
 
 export default withRouter(AddReviewForm);
-
-
-const scoreOptions = [
-  { value: "not-selected", text: "-- Score --" },
-  { value: "1", text: "1" },
-  { value: "2", text: "2" },
-  { value: "3", text: "3" },
-  { value: "4", text: "4" },
-  { value: "5", text: "5" },
-];
-
-const seatingOptions = [
-  { value: "not-selected", text: "-- Seating --" },
-  { value: "seating_none", text: "None" },
-  { value: "seating_very_small-small", text: "1 to 10" },
-  { value: "seating_small", text: "11 to 20" },
-  { value: "seating_medium", text: "21 to 30" },
-  { value: "seating_large", text: "31 to 40" },
-  { value: "seating_very_large", text: "41+" },
-];
-
-const bathroomOptions = [
-  { value: "not-selected", text: "-- Stall Count --" },
-  { value: "bathroom_none", text: "None" },
-  { value: "bathroom_one", text: "1" },
-  { value: "bathroom_two", text: "2" },
-  { value: "bathroom_three", text: "3" },
-  { value: "bathroom_four", text: "4" },
-  { value: "bathroom_five_seven", text: "5-7" },
-  { value: "bathroom_eight_ten", text: "8-10" },
-  { value: "bathroom_elevent_fifteen", text: "11-15" },
-  { value: "bathroom_sixteen_twenty", text: "16-20" },
-  { value: "bathroom_twenty_one_plus", text: "21+" },
-];

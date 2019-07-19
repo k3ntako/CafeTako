@@ -14,7 +14,7 @@ const createHoursSelect = () => {
 
 const createMinsSelect = () => {
   let minutes = [];
-  for( let i = 0; i < 60; i++ ){
+  for( let i = 0; i < 60; i = i + 5 ){
     const minute = i < 10 ? "0" + i : String(i);
     minutes.push( <option key={minute} value={minute}>{minute}</option> )
   }
@@ -25,7 +25,7 @@ const createMinsSelect = () => {
 
 export default (props) => {
   const hour = props.date._hour;
-  const minute = props.date._minute;
+  const minute = props.date._minute < 10 ? "0" + String(props.date._minute) : String(props.date._minute);
   const amPM = props.date._amPM;
 
   const label = props.label && <label>{props.label}</label>;

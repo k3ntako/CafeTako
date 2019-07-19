@@ -24,6 +24,7 @@ export default class Location{
   static create( locationId, props ){
     const rubyProps = Location.convertToRubySyntax( props );
     rubyProps.score = Number(rubyProps.score);
+    rubyProps.music = rubyProps.music === "yes" ? true : rubyProps.music === "no" ? false : null;
 
     if( !rubyProps.title || !rubyProps.score || isNaN(rubyProps.score) ){
       console.error("Title and score are required.");
