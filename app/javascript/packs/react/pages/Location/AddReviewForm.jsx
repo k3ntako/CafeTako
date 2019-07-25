@@ -48,7 +48,9 @@ class AddReviewForm extends Component {
     let props = Object.assign({}, this.state.reviewProps);
     props.startTime = props.startTime.getTimeInMinutes();
     props.endTime = props.endTime.getTimeInMinutes();
-    Review.create(this.props.match.params.id, props);
+
+    const params = this.props.match.params;
+    Review.create(params.chainId, params.id, props);
   }
 
   render(){

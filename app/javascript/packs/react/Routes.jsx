@@ -13,7 +13,7 @@ export default () => {
     <Switch>
       <Route path="/" exact component={WelcomePage} />
       <Route path="/locations/new" exact component={AddLocationPage} />
-      <Route path="/locations/:id" component={LocationPage} />
+      <Route path="/chains/:chainId/locations/:id" component={LocationPage} />
     </Switch>
   </Router>
 }

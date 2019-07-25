@@ -2,8 +2,9 @@ import FetchHelper from './FetchHelper';
 
 export default class Location{
   constructor( props ){
-    const { id, name, address, businessHours, reviews } = props;
+    const { id, name, address, businessHours, reviews, chain_id } = props;
 
+    this._chainId = chain_id;
     this._id = id;
     this._name = name;
     this._address = address;
@@ -11,6 +12,9 @@ export default class Location{
     this._reviews = reviews || [];
   }
 
+  get chainId(){
+    return this._chainId;
+  }
   get id(){
     return this._id;
   }
@@ -26,13 +30,17 @@ export default class Location{
 
   static create( props ){
     const { name, address, businessHours } = props;
+    const chain = Number(props.chain)
 
-    if( !name || !address){
+    if( !name || !address ){
       console.error("Invalid name or address.");
+      return null;
+    }else if( !chain || isNaN(chain) ){
+      console.error("Invalid chain.");
       return null;
     }
 
-    return FetchHelper.post('/api/v1/locations', {
+    return FetchHelper.post(`/api/v1/chains/${chain}/locations`, {
       name, address, businessHours
     }).then(response => {
       return new Location( props );
@@ -40,7 +48,7 @@ export default class Location{
   }
 
   static getAll( limit = 20 ){
-    return FetchHelper.get('/api/v1/locations', {
+    return FetchHelper.get('/api/v1/chains/all/locations', {
       limit
     })
     .then(responseJSON => {
@@ -50,10 +58,8 @@ export default class Location{
     });
   }
 
-  static get( id ){
-    return FetchHelper.get('/api/v1/locations/' + id, {
-      id
-    })
+  static get( chainId, id ){
+    return FetchHelper.get(`/api/v1/chains/${chainId}/locations/${id}`)
     .then(responseJSON => responseJSON);
   }
 

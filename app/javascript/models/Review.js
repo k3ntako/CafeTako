@@ -21,7 +21,7 @@ export default class Location{
     return this._id;
   }
 
-  static create( locationId, props ){
+  static create( chainId, locationId, props ){
     const rubyProps = Location.convertToRubySyntax( props );
     rubyProps.score = Number(rubyProps.score);
     rubyProps.music = rubyProps.music === "yes" ? true : rubyProps.music === "no" ? false : null;
@@ -31,7 +31,7 @@ export default class Location{
       return;
     }
 
-    return FetchHelper.post(`/api/v1/locations/${locationId}/reviews`, rubyProps).then(response => {
+    return FetchHelper.post(`/api/v1/chains/${chainId}/locations/${locationId}/reviews`, rubyProps).then(response => {
       return new Location( locationId, props );
     });
   }

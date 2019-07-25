@@ -2,12 +2,21 @@ class Api::V1::LocationsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    limit = limit_param[:limit]
+    limit = index_param[:limit]
     if !limit.is_a? Numeric
       limit = 20
     end
 
-    render json: Location.all.limit(limit)
+    chain_id = index_param[:chain_id]
+
+    if chain_id == "all"
+      render json: Location.all.limit(limit)
+    elsif chain_id.to_i.is_a? Numeric
+      render json: Location.where({chain_id: chain_id}).limit(limit)
+    else
+      error_json = { okay: false, error: "Failed to fetch locations: invalid chain ID." }
+      render json: error_json, status: 400
+    end
   end
 
   def create
@@ -27,8 +36,8 @@ class Api::V1::LocationsController < ApplicationController
 
   private
 
-  def limit_param
-    params.permit(:limit)
+  def index_param
+    params.permit(:limit, :chain_id)
   end
 
   def id_param
@@ -36,6 +45,6 @@ class Api::V1::LocationsController < ApplicationController
   end
 
   def new_location_params
-    params.permit(:name, :address)
+    params.permit(:name, :address, :chain_id)
   end
 end

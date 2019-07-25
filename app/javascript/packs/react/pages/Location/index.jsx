@@ -15,7 +15,8 @@ class LocationPage extends Component{
   }
 
   componentDidMount(){
-    Location.get( this.props.match.params.id ).
+    const params = this.props.match.params;
+    Location.get( params.chainId, params.id ).
       then(location => this.setState({
         location
       }));

@@ -3,14 +3,16 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :locations, only: [:index, :create, :show] do
-        resources :reviews, only: [:index, :create]
-      end
+      resources :chains, only: [:index, :create, :show] do
+        resources :locations, only: [:index, :create, :show] do
+          resources :reviews, only: [:index, :create]
+        end
 
-      resources :users, only: [:index]
+        resources :users, only: [:index]
+      end
     end
   end
 
   get '/locations/new', to: 'home#index'
-  get '/locations/:id', to: 'home#index'
+  get '/chains/:chain_id/locations/:id', to: 'home#index'
 end

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export default (props) => {
   return <div>
     <div>
-      <Link to={ "/locations/" + props.location.id }>
+      <Link to={ `/chains/${props.location.chainId}/locations/${props.location.id}` }>
         {props.location.name}
       </Link>
     </div>

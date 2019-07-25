@@ -13,9 +13,14 @@ User.create({
   birthday: Date.new(1995,5,27),
 })
 
+chain = Chain.create({
+  name: "Kentaro's Cafe",
+})
+
 Location.create({
   name: "Kentaro's Cafe",
   address: "1 Main St. Brooklyn, NY 11217",
+  chain: chain,
 })
 
 Review.create({
