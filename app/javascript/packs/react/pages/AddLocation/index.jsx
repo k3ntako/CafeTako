@@ -8,7 +8,7 @@ export default class WelcomePage extends Component{
   }
 
   render(){
-    return <div>
+    return <div className="page">
       <AddLocationForm />
     </div>
   }

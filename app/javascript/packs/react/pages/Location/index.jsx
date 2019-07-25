@@ -35,7 +35,7 @@ class LocationPage extends Component{
 
   render(){
     const { location } = this.state;
-    return <div>
+    return <div className="page">
       {this.renderLocation()}
       <h3>Add a Review</h3>
       <AddReviewForm />

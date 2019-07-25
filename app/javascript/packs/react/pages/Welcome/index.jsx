@@ -30,7 +30,7 @@ export default class WelcomePage extends Component{
   }
 
   render(){
-    return <div>
+    return <div className="page">
       <h1>Welcome</h1>
       { this.renderLocations() }
     </div>
