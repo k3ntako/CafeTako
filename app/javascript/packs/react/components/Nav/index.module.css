@@ -2,5 +2,9 @@
   background-color: var(--navBar-bg);
 }
 #navBar a.navLinks{
+  text-decoration: none;
   color: var(--navBar-font-color);
+}
+#navBar a.navLinks:hover{
+  color: var(--navBar-font-color-hover);
 }
