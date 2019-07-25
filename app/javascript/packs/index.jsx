@@ -7,8 +7,6 @@ import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import Routes from './react/Routes';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <Routes />,
