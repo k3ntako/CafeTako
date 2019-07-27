@@ -22,9 +22,6 @@ export default class Chain{
     if( !name ){
       console.error("Invalid name.");
       return null;
-    }else if( isNaN(chain) ){
-      console.error("Invalid chain ID.");
-      return null;
     }
 
     return FetchHelper.post('/api/v1/chains', {
