@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import TimePicker from './TimePicker';
-import FormRadio from './FormRadio';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+
+import TimePicker from './TimePicker';
 import Rating from './Rating';
 import ArrivalDepartureTimes from './ArrivalDepartureTimes';
+import FormRadios from './FormRadios';
 
 import Review from '../../../../models/Review';
-import { scoreOptions, seatingOptions, bathroomOptions, noiseOptions, wifiOptions, musicOptions } from '../../utilities/selectOptions';
 
 class AddReviewForm extends Component {
   constructor(props){
@@ -61,35 +61,7 @@ class AddReviewForm extends Component {
         reviewProps={reviewProps}
         />
 
-      <FormRadio
-        selected={reviewProps.seatingCount}
-        onChange={(val) => this.updateReview("seatingCount", val)}
-        options={seatingOptions}
-        label="Seating" />
-
-      <FormRadio
-        selected={reviewProps.bathroomCount}
-        onChange={(val) => this.updateReview("bathroomCount", val)}
-        options={bathroomOptions}
-        label="Bathroom Stall Count" />
-
-      <FormRadio
-        selected={reviewProps.music}
-        onChange={(val) => this.updateReview("music", val)}
-        options={musicOptions}
-        label="Do they play music?" />
-
-      <FormRadio
-        selected={reviewProps.noiseLevel}
-        onChange={(val) => this.updateReview("noiseLevel", val)}
-        options={noiseOptions}
-        label="Noise Level" />
-
-      <FormRadio
-        selected={reviewProps.wifiSpeed}
-        onChange={(val) => this.updateReview("wifiSpeed", val)}
-        options={wifiOptions}
-        label="Wifi" />
+      <FormRadios reviewProps={this.state.reviewProps} updateReview={this.updateReview}/>
 
       <Form.Group>
         <Form.Label>Notes/Review</Form.Label><br />

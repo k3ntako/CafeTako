@@ -2,7 +2,7 @@ import React from "react";
 
 import DataPoint from "./DataPoint";
 
-import { scoreOptions, seatingOptions, bathroomOptions, getOptionFromValue } from '../../utilities/selectOptions';
+import { getOptionFromValue } from '../../utilities/selectOptions';
 
 export default (props) => {
   if( !props.reviews || !props.reviews.length ){
@@ -11,10 +11,10 @@ export default (props) => {
 
 
   return props.reviews.map(review => {
-    const seatOption = getOptionFromValue("seatingOptions", review.seating_count);
-    const bathroomOption = getOptionFromValue("bathroomOptions", review.bathroom_count);
-    const noiseOption = getOptionFromValue("noiseOptions", review.noise_level);
-    const wifiOption = getOptionFromValue("wifiOptions", review.wifi_speed);
+    const seatOption = getOptionFromValue("seatingCount", review.seating_count);
+    const bathroomOption = getOptionFromValue("bathroomCount", review.bathroom_count);
+    const noiseOption = getOptionFromValue("noiseLevel", review.noise_level);
+    const wifiOption = getOptionFromValue("wifiSpeed", review.wifi_speed);
 
     const seatValue = seatOption.text && `${seatOption.text} (${seatOption.value})`;
     const playsMusic = typeof review.music === "boolean" ? review.music ? "Yes" : "No" : "";

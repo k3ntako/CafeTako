@@ -1,13 +1,4 @@
-const scoreOptions = [
-  { value: "not_selected", text: "" },
-  { value: "1", text: "1" },
-  { value: "2", text: "2" },
-  { value: "3", text: "3" },
-  { value: "4", text: "4" },
-  { value: "5", text: "5" },
-];
-
-const seatingOptions = [
+const seatingCount = [
   { value: "not_selected", text: "" },
   { value: "none", text: "None" },
   { value: "very_small", text: "1 to 10" },
@@ -16,7 +7,7 @@ const seatingOptions = [
   { value: "large", text: "31+" },
 ];
 
-const bathroomOptions = [
+const bathroomCount = [
   { value: "not_selected", text: "" },
   { value: "none", text: "None" },
   { value: "one", text: "1" },
@@ -26,13 +17,13 @@ const bathroomOptions = [
   { value: "five_plus", text: "5+" },
 ];
 
-const musicOptions = [
+const music = [
   { value: "not_selected", text: "" },
   { value: "yes", text: "Yes" },
   { value: "no", text: "No" },
 ];
 
-const noiseOptions = [
+const noiseLevel = [
   { value: "not_selected", text: "" },
   { value: "silent", text: "Silent" },
   { value: "quiet", text: "Quiet" },
@@ -41,7 +32,7 @@ const noiseOptions = [
   { value: "very_loud", text: "Very Loud" },
 ];
 
-const wifiOptions = [
+const wifiSpeed = [
   { value: "not_selected", text: "" },
   { value: "none", text: "None" },
   { value: "slow", text: "Slow" },
@@ -50,7 +41,7 @@ const wifiOptions = [
 ];
 
 const options = {
-  scoreOptions, seatingOptions, bathroomOptions, noiseOptions, wifiOptions, musicOptions
+  seatingCount, bathroomCount, music, noiseLevel, wifiSpeed,
 }
 
 const getOptionFromValue = ( type, value ) => {
