@@ -32,8 +32,8 @@ Review.create({
   bathroom_count: "two",
   noise_level: "quiet",
   wifi_speed: "average",
-  start_time: 420,
-  end_time: 1320,
+  start_time: "10:00",
+  end_time: "13:20",
   location_id: 1,
   user_id: 1,
 })

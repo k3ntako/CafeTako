@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import CustomDate from '../../../../models/CustomDate';
 import Location from '../../../../models/Location';
 import Chain from '../../../../models/Chain';
 

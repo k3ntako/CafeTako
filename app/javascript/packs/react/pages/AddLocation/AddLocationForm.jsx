@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import AddChainForm from './AddChainForm';
 
-import CustomDate from '../../../../models/CustomDate';
 import Chain from '../../../../models/Chain';
 import Location from '../../../../models/Location';
 

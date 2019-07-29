@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 
 import TimePicker from './TimePicker';
 import FormSelect from './FormSelect';
-import CustomDate from '../../../../models/CustomDate';
 import Review from '../../../../models/Review';
 import { scoreOptions, seatingOptions, bathroomOptions, noiseOptions, wifiOptions, musicOptions } from '../../utilities/selectOptions';
 
@@ -20,8 +19,8 @@ class AddReviewForm extends Component {
         music: null,
         noiseLevel: null,
         wifiSpeed: null,
-        startTime: new CustomDate({ hour: 12, minute: 0, amPM: "pm" }),
-        endTime: new CustomDate({ hour: 12, minute: 30, amPM: "pm" }),
+        startTime: null,
+        endTime: null,
         review: "",
       }
     };
@@ -34,20 +33,8 @@ class AddReviewForm extends Component {
     this.setState({ reviewProps });
   }
 
-  startTimeOnChange = ( dateObject ) => {
-    this.state.reviewProps.startTime.setCustomDate(dateObject);
-    this.forceUpdate();
-  }
-
-  endTimeOnChange = ( dateObject ) => {
-    this.state.reviewProps.endTime.setCustomDate(dateObject);
-    this.forceUpdate();
-  }
-
   submit = () => {
     let props = Object.assign({}, this.state.reviewProps);
-    props.startTime = props.startTime.getTimeInMinutes();
-    props.endTime = props.endTime.getTimeInMinutes();
 
     const params = this.props.match.params;
     Review.create(params.chainId, params.id, props);
@@ -69,8 +56,14 @@ class AddReviewForm extends Component {
           options={scoreOptions}
           disableFirst />
       </div>
-      <TimePicker onChange={this.startTimeOnChange} date={reviewProps.startTime} label="Arrival Time"/>
-      <TimePicker onChange={this.endTimeOnChange} date={reviewProps.endTime} label="Departure Time"/>
+      <TimePicker
+        onChange={(time) => this.updateReview("startTime", time)}
+        time={reviewProps.startTime}
+        label="Arrival Time" />
+      <TimePicker
+        onChange={(time) => this.updateReview("endTime", time)}
+        time={reviewProps.endTime}
+        label="Departure Time" />
       <div>
         <label>Seating</label>
         <FormSelect
