@@ -14,6 +14,12 @@ export default (props) => {
     icon = FA_ICONS[activeScore - 1];
   }
 
+  const onClickHandler = (e) => {
+    const newScore = Number(e.target.attributes.value.value);
+    setMouseOverScore(newScore);
+    props.onChange(newScore);
+  }
+
   const smileys = [1,2,3,4,5].map(idx => {
     const type = idx <= activeScore ? "fas" : "far";
     return <i
@@ -21,7 +27,7 @@ export default (props) => {
       className={`fa-3x ${type} ${icon}`}
       value={String(idx)}
       onClick={ (e) => setScore(Number(e.target.attributes.value.value)) }
-      onMouseOver={ (e) => setMouseOverScore(Number(e.target.attributes.value.value)) }
+      onMouseOver={ onClickHandler }
       onMouseOut={ () => setMouseOverScore(null) }>
     </i>
   })

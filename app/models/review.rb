@@ -14,7 +14,6 @@ class Review < ApplicationRecord
     small: 2,
     medium: 3,
     large: 4,
-    very_large: 5
   }, _prefix: :seating
 
   enum bathroom_count: {
@@ -23,11 +22,7 @@ class Review < ApplicationRecord
     two: 2,
     three: 3,
     four: 4,
-    five_seven: 5,
-    eight_ten: 6,
-    elevent_fifteen: 7,
-    sixteen_twenty: 8,
-    twenty_one_plus: 9
+    five_plus: 5
   }, _prefix: :bathroom
 
   enum noise_level: {

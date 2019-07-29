@@ -13,8 +13,7 @@ const seatingOptions = [
   { value: "very_small", text: "1 to 10" },
   { value: "small", text: "11 to 20" },
   { value: "medium", text: "21 to 30" },
-  { value: "large", text: "31 to 40" },
-  { value: "very_large", text: "41+" },
+  { value: "large", text: "31+" },
 ];
 
 const bathroomOptions = [
@@ -24,11 +23,7 @@ const bathroomOptions = [
   { value: "two", text: "2" },
   { value: "three", text: "3" },
   { value: "four", text: "4" },
-  { value: "five_seven", text: "5-7" },
-  { value: "eight_ten", text: "8-10" },
-  { value: "elevent_fifteen", text: "11-15" },
-  { value: "sixteen_twenty", text: "16-20" },
-  { value: "twenty_one_plus", text: "21+" },
+  { value: "five_plus", text: "5+" },
 ];
 
 const musicOptions = [

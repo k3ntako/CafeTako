@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import TimePicker from './TimePicker';
 import FormRadio from './FormRadio';
-import FormSelect from './FormSelect';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Rating from './Rating';
@@ -54,7 +53,7 @@ class AddReviewForm extends Component {
         <Form.Control type="text" />
       </Form.Group>
 
-      <Rating />
+      <Rating onChange={(val) => this.updateReview("score", val)}/>
 
       <ArrivalDepartureTimes
         onStartTimeChange={(time) => this.updateReview("startTime", time)}
@@ -62,14 +61,14 @@ class AddReviewForm extends Component {
         reviewProps={reviewProps}
         />
 
-      <FormSelect
-        defaultValue={reviewProps.seatingCount || "not_selected"}
+      <FormRadio
+        selected={reviewProps.seatingCount}
         onChange={(val) => this.updateReview("seatingCount", val)}
         options={seatingOptions}
         label="Seating" />
 
-      <FormSelect
-        defaultValue={reviewProps.bathroomCount || "not_selected"}
+      <FormRadio
+        selected={reviewProps.bathroomCount}
         onChange={(val) => this.updateReview("bathroomCount", val)}
         options={bathroomOptions}
         label="Bathroom Stall Count" />
