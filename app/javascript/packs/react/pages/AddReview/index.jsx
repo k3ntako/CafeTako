@@ -29,9 +29,8 @@ class LocationPage extends Component{
       return null
     }
 
-    const name = <Link to="">{location.chain.name} ({location.name})</Link>
+    const name = <Link to={location.locationURL}>{location.fullName}</Link>
 
-    console.log(location, this.props);
     return <Container>
       <h3>Add a Review for {name}</h3>
       <AddReviewForm />

@@ -9,13 +9,11 @@ export default (props) => {
   return <Col className={styles.card} xs={12} sm={6} lg={4}>
     <Card>
       <Card.Body>
-        <Card.Title>{"Starbucks"}</Card.Title><div>
-        </div>
-        <Card.Text>
-          <Link to={ `/chains/${props.location.chainId}/locations/${props.location.id}` }>
-            {props.location.name}
+        <Card.Title>
+          <Link to={ props.location.locationURL }>
+            {props.location.fullName}
           </Link>
-        </Card.Text>
+        </Card.Title>
         <Card.Text>{ props.location.address }</Card.Text>
       </Card.Body>
     </Card>

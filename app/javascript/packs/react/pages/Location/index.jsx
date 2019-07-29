@@ -38,10 +38,14 @@ class LocationPage extends Component{
     const params = this.props.match.params;
     const { location } = this.state;
 
+    if( !location ){
+      return null;
+    }
+
     return <Container>
       {this.renderLocation()}
       <h3>
-        <Link to={`/chains/${params.chainId}/locations/${params.id}/review`}>Add a Review</Link>
+        <Link to={`${location.locationURL}/review`}>Add a Review</Link>
       </h3>
       <h3>Reviews</h3>
       <Reviews reviews={location && location.reviews} />

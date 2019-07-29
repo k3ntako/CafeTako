@@ -2,9 +2,9 @@ import FetchHelper from './FetchHelper';
 
 export default class Location{
   constructor( props ){
-    const { id, name, address, businessHours, reviews, chain_id } = props;
+    const { id, name, address, businessHours, reviews, chain } = props;
 
-    this._chainId = chain_id;
+    this._chain = chain;
     this._id = id;
     this._name = name;
     this._address = address;
@@ -12,8 +12,8 @@ export default class Location{
     this._reviews = reviews || [];
   }
 
-  get chainId(){
-    return this._chainId;
+  get chain(){
+    return this._chain;
   }
   get id(){
     return this._id;
@@ -24,8 +24,21 @@ export default class Location{
   get address(){
     return this._address;
   }
+  get reviews(){
+    return this._reviews;
+  }
   get businessHours(){
     return this._businessHours;
+  }
+  get locationURL(){
+    return `/chains/${this._chain.id}/locations/${this._id}`;
+  }
+  get fullName(){
+    if( this._chain.name.trim().toLowerCase() === this._name.trim().toLowerCase() ){
+      return this._chain.name;
+    }
+
+    return `${this._chain.name} (${this._name})`;
   }
 
   static create( props ){
@@ -42,7 +55,7 @@ export default class Location{
 
     return FetchHelper.post(`/api/v1/chains/${chain}/locations`, {
       name, address, businessHours
-    }).then(response => {
+    }).then(() => {
       return new Location( props );
     });
   }
@@ -60,7 +73,7 @@ export default class Location{
 
   static get( chainId, id ){
     return FetchHelper.get(`/api/v1/chains/${chainId}/locations/${id}`)
-    .then(responseJSON => responseJSON);
+    .then(responseJSON => new Location( responseJSON ));
   }
 
   addReview( review ){
