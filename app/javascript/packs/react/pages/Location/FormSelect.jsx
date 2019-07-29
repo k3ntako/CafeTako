@@ -1,4 +1,5 @@
 import React from 'react';
+import Form from 'react-bootstrap/Form';
 
 export default (props) => {
 
@@ -10,7 +11,7 @@ export default (props) => {
     </option>
   })
 
-  return <select value={props.defaultValue} onChange={props.onChange}>
+  return <Form.Control as="select" value={props.defaultValue} onChange={props.onChange}>
     { options }
-  </select>
+  </Form.Control>
 }
