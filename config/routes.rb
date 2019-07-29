@@ -15,4 +15,5 @@ Rails.application.routes.draw do
 
   get '/locations/new', to: 'home#index'
   get '/chains/:chain_id/locations/:id', to: 'home#index'
+  get '/chains/:chain_id/locations/:id/review', to: 'home#index'
 end

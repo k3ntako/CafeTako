@@ -20,7 +20,7 @@ export default (props) => {
     const playsMusic = typeof review.music === "boolean" ? review.music ? "Yes" : "No" : "";
 
     return <div key={review.id}>
-      <h3>{review.title}</h3>
+      <h5>{review.title}</h5>
       <DataPoint title={"Score"} value={review.score} />
       <DataPoint title={"Review"} value={review.review} />
       <DataPoint title={"Seat Count"} value={seatValue} />

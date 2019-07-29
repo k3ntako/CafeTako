@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 
 import LocationCard from './LocationCard';
 import Location from '../../../../models/Location';

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link, withRouter } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 
-import Reviews from './Reviews';
+import AddReviewForm from './AddReviewForm';
 import Location from '../../../../models/Location';
 
 class LocationPage extends Component{
@@ -22,29 +22,19 @@ class LocationPage extends Component{
       }));
   }
 
-  renderLocation(){
-    const location = this.state.location;
+  render(){
+    const { location } = this.state;
+
     if( !location ){
       return null
     }
 
-    return <>
-      <h3>{location.name}</h3>
-      <div>{location.address}</div>
-    </>
-  }
+    const name = <Link to="">{location.chain.name} ({location.name})</Link>
 
-  render(){
-    const params = this.props.match.params;
-    const { location } = this.state;
-
+    console.log(location, this.props);
     return <Container>
-      {this.renderLocation()}
-      <h3>
-        <Link to={`/chains/${params.chainId}/locations/${params.id}/review`}>Add a Review</Link>
-      </h3>
-      <h3>Reviews</h3>
-      <Reviews reviews={location && location.reviews} />
+      <h3>Add a Review for {name}</h3>
+      <AddReviewForm />
     </Container>
   }
 }
