@@ -10,6 +10,7 @@ export default class WelcomePage extends Component{
 
   render(){
     return <Container>
+      <h3>Add New Cafe</h3>
       <AddLocationForm />
     </Container>
   }

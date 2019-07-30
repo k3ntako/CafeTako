@@ -55,8 +55,9 @@ export default class Location{
 
     return FetchHelper.post(`/api/v1/chains/${chain}/locations`, {
       name, address, businessHours
-    }).then(() => {
-      return new Location( props );
+    }).then(responseJSON => {
+      let propsWithId = Object.assign({}, props, responseJSON);
+      return new Location( propsWithId );
     });
   }
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Form from 'react-bootstrap/Form';
 
 import Location from '../../../../models/Location';
 import Chain from '../../../../models/Chain';
@@ -26,23 +27,26 @@ export default class AddChainForm extends Component {
   renderNewChainInput(){
     if( this.props.chain !== "new" ) return null;
 
-    return <div>
-      <label>New Chain Name</label>
-      <input value={this.props.newChainName} onChange={this.props.onChainNameChange} />
-    </div>
+    return <Form.Group>
+      <Form.Label>New Chain Name</Form.Label>
+      <Form.Control type="text" value={this.props.newChainName} onChange={this.props.onChainNameChange} />
+    </Form.Group>
   }
 
   render(){
-    return <div>
-      <div>
-        <label>Chain</label>
-        <select value={this.props.chain} onChange={this.props.onChainChange}>
+    return <>
+      <Form.Group>
+        <Form.Label>Chain</Form.Label>
+        <Form.Control
+          as="select"
+          value={this.props.chain}
+          onChange={this.props.onChainChange}>
           <option value="new">Add New Chain</option>
           <option disabled> ---- </option>
           { this.renderChainOptions() }
-        </select>
-      </div>
+        </Form.Control>
+      </Form.Group>
       { this.renderNewChainInput() }
-    </div>
+    </>
   }
 }

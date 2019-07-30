@@ -23,7 +23,7 @@ class Api::V1::LocationsController < ApplicationController
     new_location = Location.new(new_location_params)
 
     if new_location.save!
-      render json: { okay: true }
+      render json: { okay: true, id: new_location.id, chain: new_location.chain }
     else
       render json: { okay: false, error: "Failed to create new location: #{new_location.errors.full_messages[0]}" }
     end

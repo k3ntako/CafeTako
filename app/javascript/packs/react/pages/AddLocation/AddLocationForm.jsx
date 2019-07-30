@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 import AddChainForm from './AddChainForm';
 
 import Chain from '../../../../models/Chain';
 import Location from '../../../../models/Location';
 
-export default class AddLocationForm extends Component {
+class AddLocationForm extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -43,7 +46,9 @@ export default class AddLocationForm extends Component {
         address: this.state.address,
         businessHours: {},
         chain: chainId
-      })
+      }).then(location => {
+        this.props.history.push(location.locationURL);
+      });
     }catch(err){
       console.error(err);
     }
@@ -52,23 +57,25 @@ export default class AddLocationForm extends Component {
   render(){
     const { name, address, chain, newChainName } = this.state;
 
-    return <div>
-      <div>
-        <label>Location Name</label>
-        <input value={name} onChange={this.onNameChange} />
-      </div>
-      <div>
-        <label>Location Address</label>
-        <input value={address} onChange={this.onAddressChange} />
-      </div>
+    return <Form>
+      <Form.Group>
+        <Form.Label>Location Name</Form.Label>
+        <Form.Control type="text" value={name} onChange={this.onNameChange} />
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>Location Address</Form.Label>
+        <Form.Control type="text" value={address} onChange={this.onAddressChange} />
+      </Form.Group>
       <AddChainForm
         chain={chain}
         newChainName={newChainName}
         onChainChange={this.onChainChange}
         onChainNameChange={this.onChainNameChange} />
-      <div>
-        <button onClick={this.submit}>Submit</button>
-      </div>
-    </div>
+      <Form.Group>
+        <Button onClick={this.submit}>Submit</Button>
+      </Form.Group>
+    </Form>
   }
 }
+
+export default withRouter(AddLocationForm);
