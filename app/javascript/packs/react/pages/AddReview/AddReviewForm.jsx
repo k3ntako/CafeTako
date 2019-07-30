@@ -41,7 +41,9 @@ class AddReviewForm extends Component {
     let props = Object.assign({}, this.state.reviewProps);
 
     const params = this.props.match.params;
-    Review.create(params.chainId, params.id, props);
+    Review.create(params.chainId, params.id, props).then(url => {
+      this.props.history.push(url);
+    });
   }
 
   render(){
@@ -50,7 +52,7 @@ class AddReviewForm extends Component {
     return <Form>
       <Form.Group>
         <Form.Label>Title</Form.Label>
-        <Form.Control type="text" />
+        <Form.Control type="text" onChange={(e) => this.updateReview("title", e.target.value)}/>
       </Form.Group>
 
       <Rating onChange={(val) => this.updateReview("score", val)}/>

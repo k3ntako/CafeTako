@@ -29,7 +29,7 @@ export default (props) => {
     return <FormRadio
       key={radio.key}
       selected={reviewProps[radio.key]}
-      onChange={(val) => this.prop.updateReview(radio.key, val)}
+      onChange={(val) => props.updateReview(radio.key, val)}
       options={reviewOptions[radio.key]}
       label={radio.label} />
   })

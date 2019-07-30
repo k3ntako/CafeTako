@@ -32,8 +32,8 @@ export default class Location{
     }
 
     return FetchHelper.post(`/api/v1/chains/${chainId}/locations/${locationId}/reviews`, rubyProps).then(response => {
-      return new Location( locationId, props );
-    });
+        return `/chains/${chainId}/locations/${locationId}/`;
+      });
   }
 
   static convertToRubySyntax( object ){
