@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import AddChainForm from './AddChainForm';
+import GoogleMaps from '../../components/GoogleMaps';
 
 import Chain from '../../../../models/Chain';
 import Location from '../../../../models/Location';
@@ -18,7 +19,6 @@ class AddLocationForm extends Component {
       newChainName: "",
     };
     this.onNameChange = this.onChange.bind(this, "name");
-    this.onAddressChange = this.onChange.bind(this, "address");
     this.onChainChange = this.onChange.bind(this, "chain");
     this.onChainNameChange = this.onChange.bind(this, "newChainName");
   }
@@ -27,6 +27,10 @@ class AddLocationForm extends Component {
     this.setState({
       [stateField]: e.target.value
     })
+  }
+
+  onAddressChange = (address) => {
+    this.setState({ address });
   }
 
   createChain = async (name) => {
@@ -62,15 +66,15 @@ class AddLocationForm extends Component {
         <Form.Label>Location Name</Form.Label>
         <Form.Control type="text" value={name} onChange={this.onNameChange} />
       </Form.Group>
-      <Form.Group>
-        <Form.Label>Location Address</Form.Label>
-        <Form.Control type="text" value={address} onChange={this.onAddressChange} />
-      </Form.Group>
+
+      <GoogleMaps onAddressChange={this.onAddressChange}/>
+
       <AddChainForm
         chain={chain}
         newChainName={newChainName}
         onChainChange={this.onChainChange}
         onChainNameChange={this.onChainNameChange} />
+      
       <Form.Group>
         <Button onClick={this.submit}>Submit</Button>
       </Form.Group>
