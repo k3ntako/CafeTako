@@ -8,7 +8,7 @@ Rails.application.routes.draw do
           resources :reviews, only: [:index, :create]
         end
 
-        resources :users, only: [:index]
+        resources :users, only: [:index, :create]
       end
     end
   end
