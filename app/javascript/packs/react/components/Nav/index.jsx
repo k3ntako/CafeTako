@@ -3,28 +3,24 @@ import { Link } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+
 import Login from '../Login';
+import SignUp from '../SignUp';
 
+import styles from './index.module.css';
 
-import styles from './index.module.css'
 
 export default class NavBar extends Component {
   constructor(props){
     super(props);
 
     this.state = {
-      showModal: false,
-      isMounted: false
+      showLoginModal: false,
+      showSignUpModal: false,
     }
   }
 
-  componentDidMount(){
-    this.setState({ isMounted: true })
-  }
-
   render(){
-    if( !this.state.isMounted ) return null;
-
     return <Navbar id={styles.navBar} expand="sm">
       <Navbar.Brand>
         <Link className={styles.navLinks} to="/">CafeTako</Link>
@@ -36,13 +32,19 @@ export default class NavBar extends Component {
         </Nav>
       </Navbar.Collapse>
       <Navbar.Collapse className="justify-content-end">
-        <Navbar.Text onClick={() => this.setState({ showModal: true })}>
-          Sign In
+        <Navbar.Text onClick={() => this.setState({ showLoginModal: true })}>
+          Login
+        </Navbar.Text>
+        <Navbar.Text onClick={() => this.setState({ showSignUpModal: true })}>
+          Sign Up
         </Navbar.Text>
       </Navbar.Collapse>
+      <SignUp
+        show={this.state.showSignUpModal}
+        handleClose={() => this.setState({ showSignUpModal: false })} />
       <Login
-        show={this.state.showModal}
-        handleClose={() => this.setState({ showModal: false })} />
+        show={this.state.showLoginModal}
+        handleClose={() => this.setState({ showLoginModal: false })} />
     </Navbar>
   }
 }

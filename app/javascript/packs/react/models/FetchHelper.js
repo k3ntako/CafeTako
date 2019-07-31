@@ -14,7 +14,18 @@ const post = (url, params) => {
   }).then(response => response.json());
 }
 
+convertToRubySyntax = ( object ) => {
+  const rubyObject = {};
+  Object.keys(object).forEach(key => {
+    const rubyKey = key.replace(new RegExp("([A-Z])", 'g'), "_$1").toLowerCase();
+    rubyObject[rubyKey] = object[key];
+  });
+
+  return rubyObject;
+}
+
 module.exports = {
   get,
   post,
+  convertToRubySyntax
 }

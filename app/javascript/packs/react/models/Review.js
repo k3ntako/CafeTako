@@ -22,7 +22,7 @@ export default class Location{
   }
 
   static create( chainId, locationId, props ){
-    const rubyProps = Location.convertToRubySyntax( props );
+    const rubyProps = FetchHelper.convertToRubySyntax( props );
     rubyProps.score = Number(rubyProps.score);
     rubyProps.music = rubyProps.music === "yes" ? true : rubyProps.music === "no" ? false : null;
 
@@ -35,15 +35,4 @@ export default class Location{
         return `/chains/${chainId}/locations/${locationId}/`;
       });
   }
-
-  static convertToRubySyntax( object ){
-    const rubyObject = {};
-    Object.keys(object).forEach(key => {
-      const rubyKey = key.replace(new RegExp("([A-Z])", 'g'), "_$1").toLowerCase();
-      rubyObject[rubyKey] = object[key];
-    });
-
-    return rubyObject;
-  }
-
 }

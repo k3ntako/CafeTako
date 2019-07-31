@@ -10,8 +10,9 @@ Rails.application.routes.draw do
 
         resources :users, only: [:index, :create]
       end
-      
+
       match 'users/login', to: 'users#login', via: :post
+      match 'users/signup', to: 'users#sign_up', via: :post
     end
   end
 

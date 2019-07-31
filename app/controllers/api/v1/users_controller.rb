@@ -27,6 +27,24 @@ class Api::V1::UsersController < ApplicationController
 
   end
 
+  def sign_up
+    email_lowercase = new_user_params[:email].downcase
+
+    user = User.find_by_email(email_lowercase)
+    if user
+      return render json: {okay: false, error: "Account wiht that email already exists"}, status: 400
+    end
+
+    new_user = User.new(new_user_params)
+    new_user.email = email_lowercase
+
+    if new_user.save!
+      render json: {okay: true}
+    else
+      render json: {okay: false, error: "Failed to create account"}, status: 400
+    end
+  end
+
   private
 
   def new_user_params
