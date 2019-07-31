@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 
 import GoogleMaps from '../../components/GoogleMapsForm/Map';
 import Reviews from './Reviews';
-import Location from '../../../../models/Location';
+import Location from '../../models/Location';
 
 class LocationPage extends Component{
   constructor(props){

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 
-import Location from '../../../../models/Location';
-import Chain from '../../../../models/Chain';
+import Location from '../../models/Location';
+import Chain from '../../models/Chain';
 
 export default class AddChainForm extends Component {
   constructor(props){

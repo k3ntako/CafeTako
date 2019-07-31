@@ -8,7 +8,7 @@ import Rating from './Rating';
 import ArrivalDepartureTimes from './ArrivalDepartureTimes';
 import FormRadios from './FormRadios';
 
-import Review from '../../../../models/Review';
+import Review from '../../models/Review';
 
 class AddReviewForm extends Component {
   constructor(props){

@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 
 import AddReviewForm from './AddReviewForm';
-import Location from '../../../../models/Location';
+import Location from '../../models/Location';
 
 class LocationPage extends Component{
   constructor(props){

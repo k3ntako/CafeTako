@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
 import LocationCard from './LocationCard';
-import Location from '../../../../models/Location';
+import Location from '../../models/Location';
 
 import styles from './index.module.css';
 
