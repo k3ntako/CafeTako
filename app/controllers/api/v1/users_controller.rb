@@ -15,10 +15,26 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def login
+    user = User.find_by_email(login_params[:email])
+    if !user
+      render json: {okay: false, error: "User not found"}, status: 400
+    elsif user && user.authenticate(login_params[:password])
+      render json: {okay: true}
+    else
+      render json: {okay: false, error: "Email and password did not match"}, status: 401
+    end
+
+  end
+
   private
 
   def new_user_params
     params.permit(:email, :first_name, :last_name, :birthday, :password)
+  end
+
+  def login_params
+    params.permit(:email, :password)
   end
 
 end

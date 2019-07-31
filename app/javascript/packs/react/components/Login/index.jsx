@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Modal from '../Modal';
+import User from '../../models/User';
 
 import styles from './index.module.css';
 
@@ -15,8 +16,8 @@ export default class Login extends Component {
     }
   }
 
-  login(){
-
+  login = () => {
+    User.login(this.state.email, this.state.password);
   }
 
   render(){
@@ -35,7 +36,7 @@ export default class Login extends Component {
         </Form.Group>
 
         <Form.Group>
-          <Button onClick={ this.login } />
+          <Button onClick={ this.login }>Login</Button>
         </Form.Group>
       </Form>
     </Modal>
