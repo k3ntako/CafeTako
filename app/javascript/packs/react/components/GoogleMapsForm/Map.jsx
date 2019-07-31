@@ -1,33 +1,32 @@
 import React, { Component } from 'react';
 import { GoogleMap, Marker, withGoogleMap, withScriptjs } from 'react-google-maps';
-import { getCoordinateFromAddress } from '../../utilities/googleMapsHelper';
+
+const coordsExist = (lat, lng) => {
+  return (lat === 0 || (lat && typeof lat === "number")) &&
+    (lng === 0 || (lng && typeof lng === "number"));
+}
 
 class Map extends Component{
   constructor(props){
-    super(props)
+    super(props);
+
+    const [ lat, lng ] = coordsExist(props.lat, props.lng) ?
+      [ props.lat, props.lng ] : [ null, null ];
 
     this.state = {
-      lat: null,
-      lng: null,
+      lat: lat,
+      lng: lng,
     }
   }
 
   componentDidMount = () => {
-    if( this.props.place ){
+    const { lat, lng } = this.state;
+    if( this.props.place && !coordsExist(lat, lng) ){
       this.setState({
         lat: this.props.place.geometry.location.lat(),
         lng: this.props.place.geometry.location.lng(),
       })
-    }else if( this.props.address ){
-      getCoordinateFromAddress( this.props.address ).then(response => {
-        const place = response.results[0];
-
-        this.setState({
-          lat: place.geometry.location.lat,
-          lng: place.geometry.location.lng,
-        });
-      });
-    }else{
+    }else if( !coordsExist(lat, lng) ){
       console.error("No place or addressed passed in.");
     }
   }
@@ -35,7 +34,7 @@ class Map extends Component{
   render(){
     const { lat, lng } = this.state;
 
-    if( (!lat && lat !== 0) || (!lng && lng !== 0) ) return null;
+    if( !coordsExist(lat, lng) ) return null;
 
     return <GoogleMap
       defaultZoom={17}

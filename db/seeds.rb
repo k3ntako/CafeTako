@@ -21,6 +21,8 @@ Location.create({
   name: "Kentaro's Cafe",
   address: "1 Main St. Brooklyn, NY 11217",
   chain: chain,
+  lat: 40.753741,
+  lng: -74.002029,
 })
 
 Review.create({

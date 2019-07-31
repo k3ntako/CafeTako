@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import AddChainForm from './AddChainForm';
-import GoogleMaps from '../../components/GoogleMaps';
+import GoogleMapsForm from '../../components/GoogleMapsForm';
 
 import Chain from '../../../../models/Chain';
 import Location from '../../../../models/Location';
@@ -15,6 +15,8 @@ class AddLocationForm extends Component {
     this.state = {
       name: "",
       address: "",
+      lat: null,
+      lng: null,
       chain: "new",
       newChainName: "",
     };
@@ -29,8 +31,8 @@ class AddLocationForm extends Component {
     })
   }
 
-  onAddressChange = (address) => {
-    this.setState({ address });
+  onAddressChange = ( addressInfo ) => {
+    this.setState( addressInfo );
   }
 
   createChain = async (name) => {
@@ -49,7 +51,9 @@ class AddLocationForm extends Component {
         name: this.state.name,
         address: this.state.address,
         businessHours: {},
-        chain: chainId
+        chain: chainId,
+        lat: this.state.lat,
+        lng: this.state.lng,
       }).then(location => {
         this.props.history.push(location.locationURL);
       });
@@ -59,7 +63,7 @@ class AddLocationForm extends Component {
   }
 
   render(){
-    const { name, address, chain, newChainName } = this.state;
+    const { name, address, chain, newChainName, lat, lng } = this.state;
 
     return <Form>
       <Form.Group>
@@ -67,14 +71,17 @@ class AddLocationForm extends Component {
         <Form.Control type="text" value={name} onChange={this.onNameChange} />
       </Form.Group>
 
-      <GoogleMaps onAddressChange={this.onAddressChange}/>
+      <GoogleMapsForm
+        onAddressChange={this.onAddressChange}
+        lat={ lat }
+        lng={ lng } />
 
       <AddChainForm
         chain={chain}
         newChainName={newChainName}
         onChainChange={this.onChainChange}
         onChainNameChange={this.onChainNameChange} />
-      
+
       <Form.Group>
         <Button onClick={this.submit}>Submit</Button>
       </Form.Group>

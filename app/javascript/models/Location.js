@@ -2,7 +2,7 @@ import FetchHelper from './FetchHelper';
 
 export default class Location{
   constructor( props ){
-    const { id, name, address, businessHours, reviews, chain } = props;
+    const { id, name, address, businessHours, reviews, chain, lat, lng  } = props;
 
     this._chain = chain;
     this._id = id;
@@ -10,6 +10,8 @@ export default class Location{
     this._address = address;
     this._businessHours = businessHours || {};
     this._reviews = reviews || [];
+    this._lat = Number(lat);
+    this._lng = Number(lng);
   }
 
   get chain(){
@@ -30,6 +32,12 @@ export default class Location{
   get businessHours(){
     return this._businessHours;
   }
+  get lat(){
+    return this._lat;
+  }
+  get lng(){
+    return this._lng;
+  }
   get locationURL(){
     return `/chains/${this._chain.id}/locations/${this._id}`;
   }
@@ -42,7 +50,7 @@ export default class Location{
   }
 
   static create( props ){
-    const { name, address, businessHours } = props;
+    const { name, address, businessHours, lat, lng } = props;
     const chain = Number(props.chain)
 
     if( !name || !address ){
@@ -54,7 +62,7 @@ export default class Location{
     }
 
     return FetchHelper.post(`/api/v1/chains/${chain}/locations`, {
-      name, address, businessHours
+      name, address, businessHours, lat, lng
     }).then(responseJSON => {
       let propsWithId = Object.assign({}, props, responseJSON);
       return new Location( propsWithId );
