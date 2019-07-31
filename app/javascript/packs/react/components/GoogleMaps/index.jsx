@@ -39,11 +39,7 @@ export default class GoogleMapsForm extends Component {
           <Form.Label>{ this.state.place.formatted_address }</Form.Label>
           <Map
             isMarkerShown
-            place={this.state.place}
-            googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyAVyB_KRIJxSXmogxPxaEpzOmqXH1T3KLU"
-            loadingElement={<div style={{ height: `100%` }} />}
-            containerElement={<div style={{ height: `400px` }} />}
-            mapElement={<div style={{ height: `100%` }} />}/>
+            place={this.state.place} />
         </>}
       </Form.Group>
     </>

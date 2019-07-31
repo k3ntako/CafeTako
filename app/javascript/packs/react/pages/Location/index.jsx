@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link, withRouter } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 
+import GoogleMaps from '../../components/GoogleMaps/Map';
 import Reviews from './Reviews';
 import Location from '../../../../models/Location';
 
@@ -47,6 +48,7 @@ class LocationPage extends Component{
       <h3>
         <Link to={`${location.locationURL}/review`}>Add a Review</Link>
       </h3>
+      <GoogleMaps address={location.address} />
       <h3>Reviews</h3>
       <Reviews reviews={location && location.reviews} />
     </Container>
