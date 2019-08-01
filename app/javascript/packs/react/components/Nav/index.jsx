@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import sessionReducer from '../../../redux/reducers/sessionReducer'
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -11,7 +13,7 @@ import User from '../../models/User';
 import styles from './index.module.css';
 
 
-export default class NavBar extends Component {
+class NavBar extends Component {
   constructor(props){
     super(props);
 
@@ -52,3 +54,20 @@ export default class NavBar extends Component {
     </Navbar>
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.session.currentUser,
+  }
+}
+
+const mapDispatchToProps = function(dispatch){
+  return {
+    setCurrentUser: sessionReducer.Methods.setCurrentUser(dispatch)
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NavBar)
