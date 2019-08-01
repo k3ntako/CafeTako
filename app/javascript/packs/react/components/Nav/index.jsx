@@ -7,6 +7,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Login from '../Login';
 import SignUp from '../SignUp';
 
+import User from '../../models/User';
 import styles from './index.module.css';
 
 
@@ -37,6 +38,9 @@ export default class NavBar extends Component {
         </Navbar.Text>
         <Navbar.Text onClick={() => this.setState({ showSignUpModal: true })}>
           Sign Up
+        </Navbar.Text>
+        <Navbar.Text onClick={ User.logout }>
+          Logout
         </Navbar.Text>
       </Navbar.Collapse>
       <SignUp

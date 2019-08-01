@@ -13,4 +13,8 @@ export default class User{
     FetchHelper.post('/api/v1/users/signup', rubyProps);
   }
 
+  static logout(){
+    FetchHelper.post('/api/v1/users/logout');
+  }
+
 }

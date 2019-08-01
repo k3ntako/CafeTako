@@ -20,6 +20,7 @@ class Api::V1::UsersController < ApplicationController
     if !user
       render json: {okay: false, error: "User not found"}, status: 400
     elsif user && user.authenticate(login_params[:password])
+      session[:current_user_id] = user.id
       render json: {okay: true}
     else
       render json: {okay: false, error: "Email and password did not match"}, status: 401
@@ -43,6 +44,10 @@ class Api::V1::UsersController < ApplicationController
     else
       render json: {okay: false, error: "Failed to create account"}, status: 400
     end
+  end
+
+  def logout
+    session[:current_user_id] = nil
   end
 
   private

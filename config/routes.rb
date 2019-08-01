@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
       match 'users/login', to: 'users#login', via: :post
       match 'users/signup', to: 'users#sign_up', via: :post
+      match 'users/logout', to: 'users#logout', via: :post
     end
   end
 
