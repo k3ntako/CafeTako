@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import sessionReducer from '../../../redux/reducers/sessionReducer'
+import sessionReducer from '../../../redux/reducers/sessionReducer';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -23,27 +23,35 @@ class NavBar extends Component {
     }
   }
 
+  logout = () => {
+    User.logout().then(response => this.props.setCurrentUser(null));
+  }
+
   render(){
     return <Navbar id={styles.navBar} expand="sm">
       <Navbar.Brand>
-        <Link className={styles.navLinks} to="/">CafeTako</Link>
+        <Link to="/">CafeTako</Link>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Link className={styles.navLinks} to="/locations/new">Add Location</Link>
-        </Nav>
+        <Nav.Link
+          className="mr-auto"
+          onClick={() => this.props.history.push("/locations/new")}>
+          Add Location
+        </Nav.Link>
       </Navbar.Collapse>
       <Navbar.Collapse className="justify-content-end">
-        <Navbar.Text onClick={() => this.setState({ showLoginModal: true })}>
-          Login
-        </Navbar.Text>
-        <Navbar.Text onClick={() => this.setState({ showSignUpModal: true })}>
-          Sign Up
-        </Navbar.Text>
-        <Navbar.Text onClick={ User.logout }>
+        { !this.props.currentUser && <>
+            <Nav.Link onClick={() => this.setState({ showLoginModal: true })}>
+            Login
+          </Nav.Link>
+          <Nav.Link onClick={() => this.setState({ showSignUpModal: true })}>
+            Sign Up
+          </Nav.Link>
+        </> }
+        { this.props.currentUser && <Nav.Link onClick={ this.logout }>
           Logout
-        </Navbar.Text>
+        </Nav.Link> }
       </Navbar.Collapse>
       <SignUp
         show={this.state.showSignUpModal}
@@ -67,7 +75,7 @@ const mapDispatchToProps = function(dispatch){
   }
 }
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(NavBar)
+)(NavBar))

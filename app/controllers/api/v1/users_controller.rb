@@ -21,7 +21,7 @@ class Api::V1::UsersController < ApplicationController
       render json: {okay: false, error: "User not found"}, status: 400
     elsif user && user.authenticate(login_params[:password])
       session[:current_user_id] = user.id
-      render json: {okay: true}
+      render json: user
     else
       render json: {okay: false, error: "Email and password did not match"}, status: 401
     end
@@ -40,7 +40,7 @@ class Api::V1::UsersController < ApplicationController
     new_user.email = email_lowercase
 
     if new_user.save!
-      render json: {okay: true}
+      render json: new_user
     else
       render json: {okay: false, error: "Failed to create account"}, status: 400
     end
@@ -48,6 +48,23 @@ class Api::V1::UsersController < ApplicationController
 
   def logout
     session[:current_user_id] = nil
+    if session[:current_user_id] == nil
+      render json: { okay: true }
+    else
+      render json: {okay: false, error: "Failed to logout"}, status: 500
+    end
+  end
+
+  def currentUser
+    puts "current user: #{session[:current_user_id]}"
+    current_user = User.find_by({ id: session[:current_user_id] })
+
+    if current_user
+      render json: current_user
+    else
+      render json: { okay: true, user: nil }
+    end
+
   end
 
   private

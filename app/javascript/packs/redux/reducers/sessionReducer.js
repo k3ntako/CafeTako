@@ -22,7 +22,7 @@ sessionReducer.Methods = {
     return (currentUser) => {
       return dispatch({
         type: Types.SET_CURRENT_USER,
-        me: currentUser,
+        currentUser: currentUser,
       })
     }
   },

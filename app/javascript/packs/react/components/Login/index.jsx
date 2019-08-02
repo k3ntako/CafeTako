@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import sessionReducer from '../../../redux/reducers/sessionReducer';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -7,7 +9,7 @@ import User from '../../models/User';
 
 import styles from './index.module.css';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -17,7 +19,12 @@ export default class Login extends Component {
   }
 
   login = () => {
-    User.login(this.state.email, this.state.password);
+    User.login(this.state.email, this.state.password).then(user => {
+      if( user ){
+        this.props.setCurrentUser( user );
+        this.props.handleClose();
+      }
+    });
   }
 
   render(){
@@ -43,3 +50,20 @@ export default class Login extends Component {
 
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.session.currentUser,
+  }
+}
+
+const mapDispatchToProps = function(dispatch){
+  return {
+    setCurrentUser: sessionReducer.Methods.setCurrentUser(dispatch)
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login)

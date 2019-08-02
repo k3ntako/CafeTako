@@ -4,15 +4,11 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import store from './redux/store/store';
-import Routes from './react/Routes';
+import App from './react/App';
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Provider store={store}>
-      <Routes />
-    </Provider>,
+    <App />,
     document.getElementById("app")
   )
 })
