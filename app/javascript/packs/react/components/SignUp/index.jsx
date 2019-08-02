@@ -36,6 +36,7 @@ class SignUp extends Component {
 
   render(){
     return <Modal
+      title="Sign Up"
       handleClose={this.props.handleClose}
       show={this.props.show}>
       <Form>

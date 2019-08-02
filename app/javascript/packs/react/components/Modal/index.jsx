@@ -11,18 +11,8 @@ export default class Modal extends Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState){
-    if( this.props.show && !prevProps.show ){
-      document.addEventListener("click", this.handleOutsideClick);
-    }else if( !this.props.show && prevProps.show ){
-      document.removeEventListener("click", this.handleOutsideClick);
-    }
-  }
-
-  handleOutsideClick = (event) => {
-    const modal = document.getElementById(styles.modal);
-
-    if( !modal.contains(event.target) ){
+  onClick = (e) => {
+    if( e.target.id === styles.modalWrapper){
       this.props.handleClose();
     }
   }
@@ -30,9 +20,15 @@ export default class Modal extends Component {
   render(){
     if( !this.props.show ) return null;
 
-    return <Container id={styles.modal}>
-      { this.props.children }
-    </Container>
-
+    return <div id={styles.modalWrapper} onClick={this.onClick}>
+      <div className={styles.modal}>
+        <div className={styles.title}>
+          <h3>{this.props.title}</h3>
+        </div>
+        <div className={styles.body}>
+          { this.props.children }
+        </div>
+      </div>
+    </div>
   }
 }

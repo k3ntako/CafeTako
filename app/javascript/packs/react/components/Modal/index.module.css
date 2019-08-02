@@ -1,10 +1,36 @@
-#modal{
+#modalWrapper{
+  z-index: 98;
   position: fixed;
-  top: 25vh;
-  /* bottom: 25vh; */
-  /* left: 25vh; */
-  /* right: 25vh; */
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.modal{
+  z-index: 99;
+  position: relative;
   background-color: white;
   box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  width: 50%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.title{
+  padding: 1rem 2rem;
+  margin: 0;
+  background-color: #388e3c;
+  color: white;
+}
+
+.title > h3 {
+  margin: 0;
+}
+
+.body{
   padding: 2rem;
 }

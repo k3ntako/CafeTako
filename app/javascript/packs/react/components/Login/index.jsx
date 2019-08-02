@@ -29,6 +29,7 @@ class Login extends Component {
 
   render(){
     return <Modal
+      title="Login"
       handleClose={this.props.handleClose}
       show={this.props.show}>
       <Form>
