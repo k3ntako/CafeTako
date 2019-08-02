@@ -14,7 +14,7 @@ export default class GoogleMapsForm extends Component {
 
   onPlacesChanged = () => {
     const place = this.searchBox.getPlaces()[0];
-    
+
     this.props.onAddressChange({
       address: place.formatted_address,
       lat: place.geometry.location.lat(),
