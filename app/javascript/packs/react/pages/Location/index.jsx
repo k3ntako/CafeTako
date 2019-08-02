@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import sessionReducer from '../../../redux/reducers/sessionReducer';
 import Container from 'react-bootstrap/Container';
 
 import GoogleMaps from '../../components/GoogleMapsForm/Map';
@@ -45,9 +47,9 @@ class LocationPage extends Component{
 
     return <Container>
       {this.renderLocation()}
-      <h3>
+      {this.props.currentUser && <h3>
         <Link to={`${location.locationURL}/review`}>Add a Review</Link>
-      </h3>
+      </h3>}
       <GoogleMaps
         address={location.address}
         lat={ location.lat }
@@ -58,4 +60,14 @@ class LocationPage extends Component{
   }
 }
 
-export default withRouter(LocationPage);
+
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.session.currentUser,
+  }
+}
+
+export default withRouter(connect(
+  mapStateToProps,
+  null
+)(LocationPage));

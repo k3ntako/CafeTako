@@ -33,13 +33,13 @@ class NavBar extends Component {
         <Link to="/">CafeTako</Link>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
+      {this.props.currentUser && <Navbar.Collapse id="basic-navbar-nav">
         <Nav.Link
           className="mr-auto"
           onClick={() => this.props.history.push("/locations/new")}>
           Add Location
         </Nav.Link>
-      </Navbar.Collapse>
+      </Navbar.Collapse>}
       <Navbar.Collapse className="justify-content-end">
         { !this.props.currentUser && <>
             <Nav.Link onClick={() => this.setState({ showLoginModal: true })}>
