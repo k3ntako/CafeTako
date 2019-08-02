@@ -7,9 +7,9 @@ Rails.application.routes.draw do
         resources :locations, only: [:index, :create, :show] do
           resources :reviews, only: [:index, :create]
         end
-
-        resources :users, only: [:index, :create]
       end
+      
+      resources :users, only: [:index, :create]
 
       match 'users/login', to: 'users#login', via: :post
       match 'users/signup', to: 'users#sign_up', via: :post
