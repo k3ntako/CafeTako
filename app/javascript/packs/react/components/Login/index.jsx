@@ -27,6 +27,11 @@ class Login extends Component {
     });
   }
 
+  isValid = () => {
+    const { email, password, firstName, lastName } = this.state;
+    return email.match(User.emailRegex()) && password.length > 5;
+  }
+
   render(){
     return <Modal
       title="Login"
@@ -44,7 +49,7 @@ class Login extends Component {
         </Form.Group>
 
         <Form.Group>
-          <Button onClick={ this.login }>Login</Button>
+          <Button onClick={ this.login } disabled={ !this.isValid() }>Login</Button>
         </Form.Group>
       </Form>
     </Modal>
