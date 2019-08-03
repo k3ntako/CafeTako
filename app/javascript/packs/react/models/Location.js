@@ -14,33 +14,15 @@ export default class Location{
     this._lng = Number(lng);
   }
 
-  get chain(){
-    return this._chain;
-  }
-  get id(){
-    return this._id;
-  }
-  get name(){
-    return this._name;
-  }
-  get address(){
-    return this._address;
-  }
-  get reviews(){
-    return this._reviews;
-  }
-  get businessHours(){
-    return this._businessHours;
-  }
-  get lat(){
-    return this._lat;
-  }
-  get lng(){
-    return this._lng;
-  }
-  get locationURL(){
-    return `/chains/${this._chain.id}/locations/${this._id}`;
-  }
+  get chain(){ return this._chain; }
+  get id(){ return this._id; }
+  get name(){ return this._name; }
+  get address(){ return this._address; }
+  get reviews(){ return this._reviews; }
+  get businessHours(){ return this._businessHours; }
+  get lat(){ return this._lat; }
+  get lng(){ return this._lng; }
+  get locationURL(){ return `/chains/${this._chain.id}/locations/${this._id}`; }
   get fullName(){
     if( this._chain.name.trim().toLowerCase() === this._name.trim().toLowerCase() ){
       return this._chain.name;
@@ -48,6 +30,7 @@ export default class Location{
 
     return `${this._chain.name} (${this._name})`;
   }
+  get chainAndLocationNames(){ return [ this._chain.name, this._name ]; }
 
   static create( props ){
     const { name, address, businessHours, lat, lng } = props;
