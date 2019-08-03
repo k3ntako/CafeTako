@@ -29,7 +29,7 @@ class NavBar extends Component {
 
   render(){
     return <Navbar id={styles.navBar} expand="sm">
-      <Navbar.Brand>
+      <Navbar.Brand className={styles.brand}>
         <Link to="/">CafeTako</Link>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />

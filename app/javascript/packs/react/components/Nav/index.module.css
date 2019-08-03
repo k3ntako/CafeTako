@@ -8,3 +8,11 @@
 #navBar a:hover{
   color: var(--navBar-font-color-hover);
 }
+
+.brand{
+  padding-top: 0.5rem;
+  padding-bottom: 0.15rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: 'Kalam', cursive;
+}
