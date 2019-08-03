@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { BicyclingLayer, GoogleMap, Marker, withGoogleMap, withScriptjs } from 'react-google-maps';
+import { BicyclingLayer, Rectangle, GoogleMap, Marker, withGoogleMap, withScriptjs } from 'react-google-maps';
+
+//react-google-maps offers bicycling layer but not transit layer
+import TransitLayer from './TransitLayer';
 
 const coordsExist = (lat, lng) => {
   return (lat === 0 || (lat && typeof lat === "number")) &&
@@ -16,6 +19,8 @@ class Map extends Component{
     this.state = {
       lat: lat,
       lng: lng,
+      showTransit: false,
+      showBicycle: false,
     }
   }
 
@@ -29,14 +34,6 @@ class Map extends Component{
     }else if( !coordsExist(lat, lng) ){
       console.error("No place or addressed passed in.");
     }
-
-    //react-google-maps offers bicycling layer but not transit layer
-    //ref exposes a component with access to the instance of the map
-    //"google" (in new google.maps.TransitLayer()) is a global variable
-    const transitLayer = new google.maps.TransitLayer();
-    for( let key in this._map.context ){
-      transitLayer.setMap(this._map.context[key]);
-    }
   }
 
   render(){
@@ -45,11 +42,11 @@ class Map extends Component{
     if( !coordsExist(lat, lng) ) return null;
 
     return <GoogleMap
-      ref={(map) => this._map = map}
       defaultZoom={17}
       defaultCenter={{ lat, lng }}
       options={{ mapTypeControl: false }}>
-      <BicyclingLayer autoUpdate />
+      { this.state.showBicycle && <BicyclingLayer autoUpdate /> }
+      <TransitLayer showTransit={this.state.showTransit} />
       {this.props.isMarkerShown && <Marker position={{ lat, lng }} />}
     </GoogleMap>
   }
