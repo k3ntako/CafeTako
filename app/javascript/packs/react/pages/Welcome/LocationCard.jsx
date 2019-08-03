@@ -18,7 +18,7 @@ export default (props) => {
       <Card.Body>
         <Card.Title>
           <Link to={ props.location.locationURL }>
-            {props.location.fullName}
+            {chainName}
           </Link>
         </Card.Title>
         { locationNameHTML  }
