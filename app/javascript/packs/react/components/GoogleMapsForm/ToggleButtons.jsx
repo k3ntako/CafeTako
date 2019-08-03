@@ -6,25 +6,29 @@ import PropTypes from 'prop-types';
 
 import styles from './ToggleButtons.module.css';
 
+const controlDiv = document.createElement('div');
+
 export default class ToggleButtons extends Component {
   constructor(props){
     super(props);
     this.state = {
-
+      map: null,
+      divIndex: null,
     }
   }
 
   static contextTypes = { [MAP]: PropTypes.object }
 
   componentDidMount(){
-    this.map = this.context[MAP];
-    this.controlDiv = document.createElement('div');
-    this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(this.controlDiv);
-    this.forceUpdate();
+    const map = this.context[MAP];
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(controlDiv);
+    const divIndex = map.controls[google.maps.ControlPosition.TOP_CENTER].length - 1;
+
+    this.setState({ map, divIndex });
   }
 
   componentWillUnmount() {
-    this.map.controls[this.props.position].removeAt(this.divIndex)
+    this.state.map.controls[google.maps.ControlPosition.TOP_CENTER].removeAt(this.state.divIndex);
   }
 
   renderButtons = () => {
@@ -42,8 +46,8 @@ export default class ToggleButtons extends Component {
   }
 
   render(){
-    if( !this.map ) return <></>;
+    if( !this.state.map ) return <></>;
 
-    return createPortal(this.renderButtons(), this.controlDiv)
+    return createPortal(this.renderButtons(), controlDiv)
   }
 }
