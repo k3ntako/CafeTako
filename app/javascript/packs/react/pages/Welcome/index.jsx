@@ -15,6 +15,7 @@ export default class WelcomePage extends Component{
     this.state = {
       locations: [],
       searchResults: [],
+      searched: false,
     }
   }
 
@@ -36,7 +37,11 @@ export default class WelcomePage extends Component{
   }
 
   renderSearchResults(){
-    if( !this.state.searchResults || !this.state.searchResults.length ){
+    if( this.state.searched && (!this.state.searchResults || !this.state.searchResults.length) ){
+      return <div className={styles.noResults}>
+        <h3>No Results</h3>
+      </div>
+    }else if( !this.state.searchResults || !this.state.searchResults.length ){
       return null;
     }
 
@@ -46,12 +51,13 @@ export default class WelcomePage extends Component{
   }
 
   updateSearchResults = ( results ) => {
-    this.setState({ searchResults: results });
+    this.setState({ searchResults: results, searched: true });
   }
 
   render(){
     return <Container>
-      <SearchBar updateSearchResults={this.updateSearchResults}/>
+      <SearchBar
+        updateSearchResults={this.updateSearchResults} />
       <Row>
         { this.renderSearchResults() }
       </Row>

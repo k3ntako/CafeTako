@@ -6,3 +6,8 @@
 .searchBar{
   margin: 2rem;
 }
+
+.noResults{
+  width: 100%;
+  text-align: center;
+}
