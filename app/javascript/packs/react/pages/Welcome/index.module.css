@@ -1,6 +1,16 @@
-.card{
+.col{
   padding-top: 15px;
   padding-bottom: 15px;
+}
+.col > .card{
+  height: 100%;
+}
+.cardTitle{
+  margin: 0;
+}
+
+.locationName{
+  font-weight: 700;
 }
 
 .searchBar{
@@ -10,4 +20,10 @@
 .noResults{
   width: 100%;
   text-align: center;
+}
+
+.brand{
+  font-family: 'Kalam', cursive;
+  text-align: center;
+  font-size: 3.5rem;
 }

@@ -26,7 +26,7 @@ export default class WelcomePage extends Component{
       }));
   }
 
-  renderLocations(){
+  renderDefaultLocations(){
     if( !this.state.locations || !this.state.locations.length ){
       return null;
     }
@@ -42,7 +42,7 @@ export default class WelcomePage extends Component{
         <h3>No Results</h3>
       </div>
     }else if( !this.state.searchResults || !this.state.searchResults.length ){
-      return null;
+      return this.renderDefaultLocations();
     }
 
     return this.state.searchResults.map(location => {
@@ -56,14 +56,11 @@ export default class WelcomePage extends Component{
 
   render(){
     return <Container>
+      <h1 className={styles.brand}>CafeTako</h1>
       <SearchBar
         updateSearchResults={this.updateSearchResults} />
-      <Row>
+      <Row className={styles.row}>
         { this.renderSearchResults() }
-      </Row>
-      <h1>Cafes!</h1>
-      <Row>
-        { this.renderLocations() }
       </Row>
     </Container>
   }

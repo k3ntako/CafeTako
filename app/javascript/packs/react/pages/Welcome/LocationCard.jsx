@@ -10,13 +10,15 @@ export default (props) => {
 
   let locationNameHTML;
   if( chainName !== locationName ){
-    locationNameHTML = <Card.Text>{ locationName }</Card.Text>
+    locationNameHTML = <Card.Text className={styles.locationName}>
+      { locationName }
+    </Card.Text>
   }
 
-  return <Col className={styles.card} xs={12} sm={6} lg={4}>
-    <Card>
+  return <Col className={styles.col} xs={12} sm={6} lg={4}>
+    <Card className={styles.card}>
       <Card.Body>
-        <Card.Title>
+        <Card.Title className={styles.cardTitle}>
           <Link to={ props.location.locationURL }>
             {chainName}
           </Link>
