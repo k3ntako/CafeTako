@@ -3,6 +3,7 @@ import { BicyclingLayer, Rectangle, GoogleMap, Marker, withGoogleMap, withScript
 
 //react-google-maps offers bicycling layer but not transit layer
 import TransitLayer from './TransitLayer';
+import ToggleButtons from './ToggleButtons';
 
 const coordsExist = (lat, lng) => {
   return (lat === 0 || (lat && typeof lat === "number")) &&
@@ -36,6 +37,14 @@ class Map extends Component{
     }
   }
 
+  toggleBicycle = () => {
+    this.setState( prevState => ({ showBicycle: !prevState.showBicycle }) )
+  }
+
+  toggleTransit = () => {
+    this.setState( prevState => ({ showTransit: !prevState.showTransit }) )
+  }
+
   render(){
     const { lat, lng } = this.state;
 
@@ -46,6 +55,11 @@ class Map extends Component{
       defaultCenter={{ lat, lng }}
       options={{ mapTypeControl: false }}>
       { this.state.showBicycle && <BicyclingLayer autoUpdate /> }
+      <ToggleButtons
+        showBicycle={this.state.showBicycle}
+        showTransit={this.state.showTransit}
+        toggleBicycle={this.toggleBicycle}
+        toggleTransit={this.toggleTransit} />
       <TransitLayer showTransit={this.state.showTransit} />
       {this.props.isMarkerShown && <Marker position={{ lat, lng }} />}
     </GoogleMap>
