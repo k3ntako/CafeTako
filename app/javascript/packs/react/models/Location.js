@@ -82,7 +82,12 @@ export default class Location{
 
   static get( chainId, id ){
     return FetchHelper.get(`/api/v1/chains/${chainId}/locations/${id}`)
-    .then(responseJSON => new Location( responseJSON ));
+      .then(responseJSON => new Location( responseJSON ));
+  }
+
+  static search( searchString ){
+    return FetchHelper.get(`/api/v1/search?search=${searchString}`)
+      .then(responseJSON => responseJSON.map(locJSON => new Location( locJSON )));
   }
 
   addReview( review ){

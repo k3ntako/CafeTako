@@ -8,7 +8,9 @@ Rails.application.routes.draw do
           resources :reviews, only: [:index, :create]
         end
       end
-      
+
+      match 'search', to: 'search#search', via: :get
+
       resources :users, only: [:index, :create]
 
       match 'users/login', to: 'users#login', via: :post
