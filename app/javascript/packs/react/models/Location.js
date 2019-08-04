@@ -52,7 +52,7 @@ export default class Location{
     });
   }
 
-  static getAll( limit = 20 ){
+  static getAll( limit = 24 ){
     return FetchHelper.get('/api/v1/chains/all/locations', {
       limit
     })

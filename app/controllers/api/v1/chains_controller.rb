@@ -4,7 +4,7 @@ class Api::V1::ChainsController < ApplicationController
   def index
     limit = limit_param[:limit]
     if !limit.is_a? Numeric
-      limit = 20
+      limit = 24
     end
 
     render json: Chain.all.limit(limit)

@@ -4,7 +4,7 @@ class Api::V1::LocationsController < ApplicationController
   def index
     limit = index_param[:limit]
     if !limit.is_a? Numeric
-      limit = 20
+      limit = 24
     end
 
     chain_id = index_param[:chain_id]
