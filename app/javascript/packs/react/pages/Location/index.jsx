@@ -3,7 +3,10 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import sessionReducer from '../../../redux/reducers/sessionReducer';
 import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
+import BusinessHours from './BusinessHours';
 import GoogleMaps from '../../components/GoogleMapsForm/Map';
 import Reviews from './Reviews';
 import Location from '../../models/Location';
@@ -50,10 +53,17 @@ class LocationPage extends Component{
       {this.props.currentUser && <h3>
         <Link to={`${location.locationURL}/review`}>Add a Review</Link>
       </h3>}
-      <GoogleMaps
-        address={location.address}
-        lat={ location.lat }
-        lng={ location.lng } />
+      <Row>
+        <Col md={12} lg={8}>
+          <GoogleMaps
+            address={location.address}
+            lat={ location.lat }
+            lng={ location.lng } />
+        </Col>
+        <Col md={12} lg={4}>
+          <BusinessHours businessHours={location.businessHours}/>
+        </Col>
+      </Row>
       <h3>Reviews</h3>
       <Reviews reviews={location && location.reviews} />
     </Container>

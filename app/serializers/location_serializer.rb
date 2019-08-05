@@ -3,6 +3,18 @@ class LocationSerializer < ActiveModel::Serializer
 
   has_many :reviews
 
+  def business_hours
+    business_hours_with_times = {}
+    object[:business_hours].each do |key, value|
+      if value.is_a? Numeric
+        business_hours_with_times[key] = BusinessHour.find(value)
+      else
+        business_hours_with_times[key] = nil
+      end
+    end
+    business_hours_with_times
+  end
+
   def deg_to_rad(d)
     d * Math::PI / 180
   end
@@ -11,8 +23,7 @@ class LocationSerializer < ActiveModel::Serializer
   # https://developers.google.com/maps/solutions/store-locator/clothing-store-locator#finding-locations-with-mysql
   def distance
     if object.respond_to? :distance
-      puts "here"
-      return object
+      return object[:distance]
     end
 
     #commented out because currently, front-end does not pass through their location except for search

@@ -2,13 +2,13 @@ import FetchHelper from './FetchHelper';
 
 export default class Location{
   constructor( props ){
-    const { id, name, address, businessHours, reviews, chain, lat, lng  } = props;
+    const { id, name, address, business_hours, reviews, chain, lat, lng  } = props;
 
     this._chain = chain;
     this._id = id;
     this._name = name;
     this._address = address;
-    this._businessHours = businessHours || {};
+    this._businessHours = business_hours || {};
     this._reviews = reviews || [];
     this._lat = Number(lat);
     this._lng = Number(lng);
