@@ -18,6 +18,15 @@ export default class App extends Component{
     User.currentUser().then(user => {
       sessionReducer.Methods.setCurrentUser(store.dispatch)(user);
     });
+
+    navigator.geolocation.getCurrentPosition((position) => {
+      const coordinates = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      }
+      sessionReducer.Methods.setUserLocation(store.dispatch)(coordinates);
+    })
+
   }
 
   render(){
