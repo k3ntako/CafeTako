@@ -12,7 +12,7 @@ export default class GoogleMapsForm extends Component {
     }
   }
 
-  onPlacesChanged = (place) => {
+  onPlaceChanged = (place) => {
     this.props.onAddressChange({
       address: place.formatted_address,
       lat: place.geometry.location.lat(),
@@ -29,14 +29,15 @@ export default class GoogleMapsForm extends Component {
       <Form.Group>
         <Form.Label>Location Address</Form.Label>
         <SearchBox
-          onPlacesChanged={this.onPlacesChanged}/>
+          onPlaceChanged={this.onPlaceChanged}/>
       </Form.Group>
       <Form.Group>
         {this.state.place && <>
           <Form.Label>{ this.state.place.formatted_address }</Form.Label>
           <Map
             isMarkerShown
-            place={this.state.place} />
+            place={this.state.place}
+            locations={ this.props.locations || [] }/>
         </>}
       </Form.Group>
     </>

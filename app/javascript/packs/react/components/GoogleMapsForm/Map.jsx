@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BicyclingLayer, Rectangle, GoogleMap, Marker, withGoogleMap, withScriptjs } from 'react-google-maps';
 
+import Markers from './Markers';
 //react-google-maps offers bicycling layer but not transit layer
 import TransitLayer from './TransitLayer';
 import ToggleButtons from './ToggleButtons';
@@ -25,6 +26,18 @@ class Map extends Component{
     }
   }
 
+  static getDerivedStateFromProps(props, state){
+    const areCoordsValid = coordsExist(props.lat, props.lng);
+    if( areCoordsValid && props.lat !== state.lat || props.lng !== state.lng ){
+      return {
+        lat: props.lat,
+        lng: props.lng,
+      }
+    }
+
+    return null
+  }
+
   componentDidMount = () => {
     const { lat, lng } = this.state;
     if( this.props.place && !coordsExist(lat, lng) ){
@@ -47,12 +60,13 @@ class Map extends Component{
 
   render(){
     const { lat, lng } = this.state;
+    const { isMarkerShown, locations } = this.props;
 
     if( !coordsExist(lat, lng) ) return null;
 
     return <GoogleMap
       defaultZoom={17}
-      defaultCenter={{ lat, lng }}
+      center={{ lat, lng }}
       options={{ mapTypeControl: false }}>
       { this.state.showBicycle && <BicyclingLayer autoUpdate /> }
       <ToggleButtons
@@ -61,7 +75,8 @@ class Map extends Component{
         toggleBicycle={this.toggleBicycle}
         toggleTransit={this.toggleTransit} />
       <TransitLayer showTransit={this.state.showTransit} />
-      {this.props.isMarkerShown && <Marker position={{ lat, lng }} />}
+      {isMarkerShown && <Marker position={{ lat, lng }} />}
+      {locations && locations.length && <Markers locations={locations} />}
     </GoogleMap>
   }
 }
@@ -73,7 +88,6 @@ const WrappedMap = withScriptjs(withGoogleMap(Map));
 export default (props) => {
   return <WrappedMap
     {...props}
-    isMarkerShown
     googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyAVyB_KRIJxSXmogxPxaEpzOmqXH1T3KLU"
     loadingElement={<div style={{ height: `100%` }} />}
     containerElement={<div style={{ height: `400px` }} />}

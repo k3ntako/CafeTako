@@ -6,8 +6,8 @@ const Types = {
 const initialState = {
   currentUser: null,
   userLocation: {
-    lat: null,
-    lng: null,
+    lat: 40.758071,
+    lng: -73.985418,
   }
 };
 

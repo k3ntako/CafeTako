@@ -10,14 +10,14 @@ class SearchBox extends Component{
     this.searchBox = null;
   }
 
-  onPlacesChanged = () => {
-    this.props.onPlacesChanged(this.searchBox.getPlaces()[0]);
+  onPlaceChanged = () => {
+    this.props.onPlaceChanged(this.searchBox.getPlaces()[0]);
   }
 
   render(){
     return <StandaloneSearchBox
       ref={(ref) => this.searchBox = ref}
-      onPlacesChanged={this.onPlacesChanged}
+      onPlaceChanged={this.onPlaceChanged}
       bounds={
         new google.maps.LatLngBounds(
           new google.maps.LatLng(40.568660, -74.047492),

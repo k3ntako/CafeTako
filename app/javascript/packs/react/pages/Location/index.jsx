@@ -48,6 +48,11 @@ class LocationPage extends Component{
       return null;
     }
 
+    const reivewsHTML = location.reviews && !!location.reviews.length && <>
+      <h3>Reviews</h3>
+      <Reviews reviews={location && location.reviews} />
+    </>
+
     return <Container>
       {this.renderLocation()}
       {this.props.currentUser && <h3>
@@ -64,8 +69,7 @@ class LocationPage extends Component{
           <BusinessHours businessHours={location.businessHours}/>
         </Col>
       </Row>
-      <h3>Reviews</h3>
-      <Reviews reviews={location && location.reviews} />
+      { reivewsHTML }
     </Container>
   }
 }

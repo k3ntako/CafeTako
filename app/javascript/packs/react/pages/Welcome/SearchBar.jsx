@@ -12,8 +12,6 @@ export default class SearchBar extends Component{
     super(props);
     this.state = {
       search: "",
-      lat: null,
-      lng: null,
     }
   }
 
@@ -25,7 +23,11 @@ export default class SearchBar extends Component{
 
   submit = () => {
     if( this.isValid() ){
-      const { search, lat, lng } = this.state;
+      const { search } = this.state;
+      const { place } = this.props;
+
+      const lat = place.geometry.location.lat();
+      const lng = place.geometry.location.lng();
 
       Location.search( search, lat, lng )
         .then(results => this.props.updateSearchResults(results));
@@ -33,18 +35,18 @@ export default class SearchBar extends Component{
   }
 
   isValid(){
-    const { search, lat, lng } = this.state;
+    const { search } = this.state;
+    const { place } = this.props;
 
-    return search && typeof lat === "number" && ( lat || lat === 0 ) &&
-      typeof lng === "number" && ( lng || lng === 0 );
+    return search && !!place;
   }
 
-  onPlacesChanged = (place) => {
+  onPlaceChanged = (place) => {
     const lat = place && place.geometry && place.geometry.location && place.geometry.location.lat();
     const lng = typeof lat === "number" && (lat || lat === 0) && place.geometry.location.lng();
 
     if( (lat || lat === 0) && (lng || lng === 0) ){
-      this.setState({ lat, lng });
+      this.props.onPlaceChanged( place );
     }else{
       console.error("Unable to save coordinates.");
     }
@@ -69,7 +71,7 @@ export default class SearchBar extends Component{
             <i className="fas fa-map-marker-alt"></i>
           </InputGroup.Text>
         </InputGroup.Prepend>
-        <SearchBox onPlacesChanged={this.onPlacesChanged} placeholder="Location"/>
+        <SearchBox onPlaceChanged={this.onPlaceChanged} placeholder="Location"/>
         <InputGroup.Append
           onClick={this.submit}
           className={this.isValid() ? styles.valid : ""}>
