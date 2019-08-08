@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './index.module.css';
 
@@ -17,7 +18,7 @@ const convertMinToHours = ( min ) => {
 }
 
 const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-export default (props) => {
+const BusinessHours = (props) => {
   const { businessHours } = props;
 
   const businessHoursHTML = daysOfWeek.map(day => {
@@ -38,3 +39,23 @@ export default (props) => {
     </table>
   </div>
 }
+
+const bhShape = PropTypes.shape({
+  id: PropTypes.number,
+  open_time: PropTypes.number,
+  close_time: PropTypes.number
+})
+
+BusinessHours.propTypes = {
+  title: PropTypes.shape({
+    Sunday: bhShape,
+    Monday: bhShape,
+    Tuesday: bhShape,
+    Wednesday: bhShape,
+    Thursday: bhShape,
+    Friday: bhShape,
+    Saturday: bhShape,
+  }),
+}
+
+export default BusinessHours;

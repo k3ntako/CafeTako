@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import pT from '../../propTypes';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
@@ -58,9 +60,10 @@ class AddReviewForm extends Component {
       <Rating onChange={(val) => this.updateReview("score", val)}/>
 
       <ArrivalDepartureTimes
+        startTime={reviewProps.startTime}
         onStartTimeChange={(time) => this.updateReview("startTime", time)}
+        endTime={reviewProps.endTime}
         onEndTimeChange={(time) => this.updateReview("endTime", time)}
-        reviewProps={reviewProps}
         />
 
       <FormRadios reviewProps={this.state.reviewProps} updateReview={this.updateReview}/>
@@ -75,5 +78,14 @@ class AddReviewForm extends Component {
     </Form>
   }
 }
+
+let AddReviewFormPT = pT.withRouter;
+
+AddReviewFormPT.match.params = PropTypes.shape({
+  id: PropTypes.string.isRequired,
+  chainId: PropTypes.string.isRequired,
+});
+
+AddReviewForm.propTypes = AddReviewFormPT;
 
 export default withRouter(AddReviewForm);

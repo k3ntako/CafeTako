@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // "units" argument is used only if the "value" is a number
 // "units" is an array with the unit for 0, 1, and multiple items in that order.
 
-export default (props) => {
+const DataPoint = (props) => {
   const { title, value, units } = props;
 
   if( !title || (!value && value !== 0) ){
@@ -24,3 +25,11 @@ export default (props) => {
     <strong>{ title }: </strong><span>{`${value}${unit}`}</span>
   </div>
 }
+
+DataPoint.propTypes = {
+  title: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  units: PropTypes.array,
+}
+
+export default DataPoint;

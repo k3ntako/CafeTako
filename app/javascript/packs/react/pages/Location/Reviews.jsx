@@ -1,10 +1,11 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import DataPoint from "./DataPoint";
 
 import { getOptionFromValue } from '../../utilities/selectOptions';
 
-export default (props) => {
+const Reviews = (props) => {
   if( !props.reviews || !props.reviews.length ){
     return null;
   }
@@ -31,3 +32,21 @@ export default (props) => {
     </div>
   })
 }
+
+Reviews.propTypes = {
+  reviews: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    bathroom_count: PropTypes.string,
+    end_time: PropTypes.number,
+    music: PropTypes.bool,
+    noise_level: PropTypes.string,
+    review: PropTypes.string,
+    score: PropTypes.number,
+    seating_count: PropTypes.string,
+    start_time: PropTypes.number,
+    title: PropTypes.string,
+    wifi_speed: PropTypes.string,
+  })),
+}
+
+export default Reviews;

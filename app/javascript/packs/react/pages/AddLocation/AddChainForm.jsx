@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 
 import Location from '../../models/Location';
 import Chain from '../../models/Chain';
 
-export default class AddChainForm extends Component {
+class AddChainForm extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -50,3 +51,11 @@ export default class AddChainForm extends Component {
     </>
   }
 }
+
+AddChainForm.propTypes = {
+  chain: PropTypes.string,
+  newChainName: PropTypes.string,
+  onChainNameChange: PropTypes.func,
+}
+
+export default AddChainForm;

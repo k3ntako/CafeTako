@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 
 const FA_ICONS = ["fa-angry", "fa-frown", "fa-meh", "fa-smile", "fa-grin-hearts"]
 
-export default (props) => {
+const Rating = (props) => {
   const [score, setScore] = useState(null);
   const [mouseOverScore, setMouseOverScore] = useState(null);
 
@@ -39,3 +40,9 @@ export default (props) => {
     </div>
   </Form.Group>
 }
+
+Rating.propTypes = {
+  onChange: PropTypes.func,
+}
+
+export default Rating;

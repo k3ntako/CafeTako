@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 
-export default (props) => {
+const FormSelect = (props) => {
 
   const options = props.options.map((option, idx) => {
     let disabled = props.disableFirst && idx === 0;
@@ -27,3 +28,23 @@ export default (props) => {
 const removeNotSelected = (val) => {
   return val === "not_selected" ? null : val;
 }
+
+FormSelect.propTypes = {
+  options: PropTypes.arrayOf(
+    shape({
+      value: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+    })
+  ),
+  disableFirst: PropTypes.bool.isRequired,
+  label: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  defaultValue: PropTypes.string.isRequired,
+}
+
+FormSelect.defaultProps = {
+  disableFirst: false,
+  defaultValue: "not_selected",
+};
+
+export default FormSelect;

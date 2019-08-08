@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import sessionReducer from '../../../redux/reducers/sessionReducer';
+import PropTypes from 'prop-types';
+import pT from '../../propTypes';
+import reduxPT from '../../propTypes/reduxPropTypes';
 import Container from 'react-bootstrap/Container';
 
 import AddReviewForm from './AddReviewForm';
@@ -43,6 +46,17 @@ class AddReview extends Component{
     </Container>
   }
 }
+
+let AddReviewPT = pT.withRouter;
+AddReviewPT = Object.assign(AddReviewPT, reduxPT.currentUser);
+
+AddReviewPT.match.params = PropTypes.shape({
+  id: PropTypes.string.isRequired,
+  chainId: PropTypes.string.isRequired,
+});
+
+AddReview.propTypes = AddReviewPT;
+
 
 const mapStateToProps = (state) => {
   return {

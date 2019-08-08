@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import FormRadio from './FormRadio';
 
 import reviewOptions from '../../utilities/selectOptions';
@@ -22,7 +23,7 @@ const RADIO_OPTIONS = [
   },
 ];
 
-export default (props) => {
+const FormRadios = (props) => {
   const reviewProps = props.reviewProps;
 
   return RADIO_OPTIONS.map(radio => {
@@ -34,3 +35,16 @@ export default (props) => {
       label={radio.label} />
   })
 }
+
+FormRadios.propTypes = {
+  reviewProps: PropTypes.shape({
+    seatingCount: PropTypes.string,
+    bathroomCount: PropTypes.string,
+    music: PropTypes.string,
+    noiseLevel: PropTypes.string,
+    wifiSpeed: PropTypes.string,
+  }),
+  updateReview: PropTypes.func,
+}
+
+export default FormRadios;

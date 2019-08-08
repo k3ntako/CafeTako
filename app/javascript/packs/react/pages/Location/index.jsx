@@ -2,9 +2,13 @@ import React, { Component } from "react";
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import sessionReducer from '../../../redux/reducers/sessionReducer';
+import PropTypes from 'prop-types';
+import pT from '../../propTypes';
+import reduxPT from '../../propTypes/reduxPropTypes';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import User from '../../models/User';
 
 import BusinessHours from './BusinessHours';
 import GoogleMaps from '../../components/GoogleMapsForm/Map';
@@ -50,7 +54,7 @@ class LocationPage extends Component{
 
     const reivewsHTML = location.reviews && !!location.reviews.length && <>
       <h3>Reviews</h3>
-      <Reviews reviews={location && location.reviews} />
+      <Reviews reviews={location.reviews} />
     </>
 
     return <Container>
@@ -61,6 +65,7 @@ class LocationPage extends Component{
       <Row>
         <Col md={12} lg={8}>
           <GoogleMaps
+            isMarkerShown
             address={location.address}
             lat={ location.lat }
             lng={ location.lng } />
@@ -73,6 +78,16 @@ class LocationPage extends Component{
     </Container>
   }
 }
+
+let LocationPagePT = pT.withRouter;
+LocationPagePT = Object.assign(LocationPagePT, reduxPT.currentUser);
+
+LocationPagePT.match.params = PropTypes.shape({
+  id: PropTypes.string.isRequired,
+  chainId: PropTypes.string.isRequired,
+});
+
+LocationPage.propTypes = LocationPagePT;
 
 
 const mapStateToProps = (state) => {

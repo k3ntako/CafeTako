@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 
-export default (props) => {
+const FormRadio = (props) => {
 
   const deselectIfSelected = (optionVal, event) => {
     optionVal === event.target.value && props.onChange(null);
@@ -37,3 +38,17 @@ export default (props) => {
     </div>
   </Form.Group>
 }
+
+FormRadio.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.string,
+      label: PropTypes.string,
+    }).isRequired
+  ),
+  selected: PropTypes.string,
+  label: PropTypes.string.isRequired,
+}
+
+export default FormRadio;

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import pT from '../../propTypes';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
@@ -88,5 +90,7 @@ class AddLocationForm extends Component {
     </Form>
   }
 }
+
+AddLocationForm.propTypes = pT.withRouter;
 
 export default withRouter(AddLocationForm);
