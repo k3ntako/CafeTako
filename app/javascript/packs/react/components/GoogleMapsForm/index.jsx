@@ -14,7 +14,7 @@ class GoogleMapsForm extends Component {
     }
   }
 
-  onPlaceChanged = (place) => {
+  onPlacesChanged = (place) => {
     this.props.onAddressChange({
       address: place.formatted_address,
       lat: place.geometry.location.lat(),
@@ -31,7 +31,7 @@ class GoogleMapsForm extends Component {
       <Form.Group>
         <Form.Label>Location Address</Form.Label>
         <SearchBox
-          onPlaceChanged={this.onPlaceChanged}/>
+          onPlacesChanged={this.onPlacesChanged}/>
       </Form.Group>
       <Form.Group>
         {this.state.place && <>

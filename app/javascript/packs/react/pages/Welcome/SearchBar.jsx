@@ -41,12 +41,12 @@ export default class SearchBar extends Component{
     return search && !!place;
   }
 
-  onPlaceChanged = (place) => {
+  onPlacesChanged = (place) => {
     const lat = place && place.geometry && place.geometry.location && place.geometry.location.lat();
     const lng = typeof lat === "number" && (lat || lat === 0) && place.geometry.location.lng();
 
     if( (lat || lat === 0) && (lng || lng === 0) ){
-      this.props.onPlaceChanged( place );
+      this.props.onPlacesChanged( place );
     }else{
       console.error("Unable to save coordinates.");
     }
@@ -71,7 +71,7 @@ export default class SearchBar extends Component{
             <i className="fas fa-map-marker-alt"></i>
           </InputGroup.Text>
         </InputGroup.Prepend>
-        <SearchBox onPlaceChanged={this.onPlaceChanged} placeholder="Location"/>
+        <SearchBox onPlacesChanged={this.onPlacesChanged} placeholder="Location"/>
         <InputGroup.Append
           onClick={this.submit}
           className={this.isValid() ? styles.valid : ""}>

@@ -11,14 +11,14 @@ class SearchBox extends Component{
     this.searchBox = null;
   }
 
-  onPlaceChanged = () => {
-    this.props.onPlaceChanged(this.searchBox.getPlaces()[0]);
+  onPlacesChanged = () => {
+    this.props.onPlacesChanged(this.searchBox.getPlaces()[0]);
   }
 
   render(){
     return <StandaloneSearchBox
       ref={(ref) => this.searchBox = ref}
-      onPlaceChanged={this.onPlaceChanged}
+      onPlacesChanged={this.onPlacesChanged}
       bounds={
         new google.maps.LatLngBounds(
           new google.maps.LatLng(40.568660, -74.047492),
@@ -31,15 +31,11 @@ class SearchBox extends Component{
 }
 
 SearchBox.propTypes = {
-  place: PropTypes.func,
-  isMarkerShown: PropTypes.bool,
-  locations: PropTypes.arrayOf(Location),
-  lat: PropTypes.number,
-  lng: PropTypes.number,
+  placeholder: PropTypes.string,
+  onPlacesChanged: PropTypes.func,
   googleMapURL: PropTypes.string,
   loadingElement: PropTypes.element,
   containerElement: PropTypes.element,
-  mapElement: PropTypes.element,
 }
 
 const WrappedSearchBox = withScriptjs(SearchBox);

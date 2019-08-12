@@ -58,7 +58,7 @@ class WelcomePage extends Component{
     this.setState({ searchResults: results, searched: true });
   }
 
-  onPlaceChanged = ( place ) => {
+  onPlacesChanged = ( place ) => {
     this.setState({ place });
   }
 
@@ -81,7 +81,7 @@ class WelcomePage extends Component{
       <h1 className={styles.brand}>CafeTako</h1>
       <SearchBar
         place={place}
-        onPlaceChanged={this.onPlaceChanged}
+        onPlacesChanged={this.onPlacesChanged}
         updateSearchResults={this.updateSearchResults} />
       { mapHTML }
       <Row className={styles.row}>
