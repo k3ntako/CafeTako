@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { MAP } from 'react-google-maps/lib/constants';
 
 
-export default class ToggleButtons extends Component {
+class ToggleButtons extends Component {
   static contextTypes = { [MAP]: PropTypes.object };
 
   constructor(props){
@@ -28,3 +28,9 @@ export default class ToggleButtons extends Component {
     return <></>;
   }
 }
+
+ToggleButtons.propTypes = {
+  showTransit: PropTypes.bool,
+}
+
+export default ToggleButtons;

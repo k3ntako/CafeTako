@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { withScriptjs } from 'react-google-maps';
 import StandaloneSearchBox from 'react-google-maps/lib/components/places/StandaloneSearchBox';
 import Form from 'react-bootstrap/Form';
@@ -27,6 +28,18 @@ class SearchBox extends Component{
         <Form.Control type="text" placeholder={this.props.placeholder || ""}/>
       </StandaloneSearchBox>
   }
+}
+
+SearchBox.propTypes = {
+  place: PropTypes.func,
+  isMarkerShown: PropTypes.bool,
+  locations: PropTypes.arrayOf(Location),
+  lat: PropTypes.number,
+  lng: PropTypes.number,
+  googleMapURL: PropTypes.string,
+  loadingElement: PropTypes.element,
+  containerElement: PropTypes.element,
+  mapElement: PropTypes.element,
 }
 
 const WrappedSearchBox = withScriptjs(SearchBox);

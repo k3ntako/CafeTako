@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { createPortal } from 'react-dom'
+import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import { MAP } from 'react-google-maps/lib/constants'
-import PropTypes from 'prop-types';
 
 import styles from './ToggleButtons.module.css';
 
 const controlDiv = document.createElement('div');
 
-export default class ToggleButtons extends Component {
+class ToggleButtons extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -51,3 +51,12 @@ export default class ToggleButtons extends Component {
     return createPortal(this.renderButtons(), controlDiv)
   }
 }
+
+ToggleButtons.propTypes = {
+  showBicycle: PropTypes.bool,
+  showTransit: PropTypes.bool,
+  toggleBicycle: PropTypes.func,
+  toggleTransit: PropTypes.func,
+}
+
+export default ToggleButtons;

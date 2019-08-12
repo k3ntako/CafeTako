@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Map from './Map';
 import SearchBox from './SearchBox';
+import Location from '../../models/Location';
 
 
-export default class GoogleMapsForm extends Component {
+class GoogleMapsForm extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -43,3 +45,10 @@ export default class GoogleMapsForm extends Component {
     </>
   }
 }
+
+// GoogleMapsForm.propTypes = {
+//   // onAddressChange: PropTypes.func,
+//   // locations: PropTypes.arrayOf(Location)
+// }
+
+export default GoogleMapsForm;

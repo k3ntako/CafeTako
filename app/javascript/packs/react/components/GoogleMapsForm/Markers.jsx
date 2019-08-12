@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Marker, InfoWindow } from 'react-google-maps';
 
-export default class Map extends Component{
+import Location from '../../models/Location';
+
+class Markers extends Component{
   constructor(props){
     super(props);
 
@@ -39,3 +42,9 @@ export default class Map extends Component{
     </>
   }
 }
+
+Markers.propTypes = {
+  locations: PropTypes.arrayOf(PropTypes.instanceOf(Location)),
+}
+
+export default Markers;

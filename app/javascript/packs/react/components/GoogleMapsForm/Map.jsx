@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { BicyclingLayer, Rectangle, GoogleMap, Marker, withGoogleMap, withScriptjs } from 'react-google-maps';
 
 import Markers from './Markers';
 //react-google-maps offers bicycling layer but not transit layer
 import TransitLayer from './TransitLayer';
 import ToggleButtons from './ToggleButtons';
+
+import Location from '../../models/Location';
 
 const coordsExist = (lat, lng) => {
   return (lat === 0 || (lat && typeof lat === "number")) &&
@@ -81,7 +84,17 @@ class Map extends Component{
   }
 }
 
-
+// Map.propTypes = {
+//   // place: PropTypes.func,
+//   // isMarkerShown: PropTypes.bool,
+//   // locations: PropTypes.arrayOf(Location),
+//   // lat: PropTypes.number,
+//   // lng: PropTypes.number,
+//   // googleMapURL: PropTypes.string,
+//   // loadingElement: PropTypes.element,
+//   // containerElement: PropTypes.element,
+//   // mapElement: PropTypes.element,
+// }
 
 const WrappedMap = withScriptjs(withGoogleMap(Map));
 
