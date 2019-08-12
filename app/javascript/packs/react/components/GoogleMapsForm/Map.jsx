@@ -84,17 +84,17 @@ class Map extends Component{
   }
 }
 
-// Map.propTypes = {
-//   // place: PropTypes.func,
-//   // isMarkerShown: PropTypes.bool,
-//   // locations: PropTypes.arrayOf(Location),
-//   // lat: PropTypes.number,
-//   // lng: PropTypes.number,
-//   // googleMapURL: PropTypes.string,
-//   // loadingElement: PropTypes.element,
-//   // containerElement: PropTypes.element,
-//   // mapElement: PropTypes.element,
-// }
+Map.propTypes = {
+  place: PropTypes.func,
+  isMarkerShown: PropTypes.bool,
+  locations: PropTypes.arrayOf(PropTypes.instanceOf(Location)),
+  lat: PropTypes.number,
+  lng: PropTypes.number,
+  googleMapURL: PropTypes.string,
+  loadingElement: PropTypes.element,
+  containerElement: PropTypes.element,
+  mapElement: PropTypes.element,
+}
 
 const WrappedMap = withScriptjs(withGoogleMap(Map));
 

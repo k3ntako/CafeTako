@@ -46,9 +46,9 @@ class GoogleMapsForm extends Component {
   }
 }
 
-// GoogleMapsForm.propTypes = {
-//   // onAddressChange: PropTypes.func,
-//   // locations: PropTypes.arrayOf(Location)
-// }
+GoogleMapsForm.propTypes = {
+  onAddressChange: PropTypes.func,
+  locations: PropTypes.arrayOf(PropTypes.instanceOf(Location))
+}
 
 export default GoogleMapsForm;
