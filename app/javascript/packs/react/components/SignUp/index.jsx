@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import sessionReducer from '../../../redux/reducers/sessionReducer';
+import PropTypes from 'prop-types';
+import pT from '../../propTypes';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -74,6 +76,12 @@ class SignUp extends Component {
 
   }
 }
+
+const SignUpPT = pT.withRouter;
+SignUp.propTypes = Object.assign(SignUpPT, {
+  handleClose: PropTypes.func,
+  show: PropTypes.bool,
+});
 
 
 const mapStateToProps = (state) => {

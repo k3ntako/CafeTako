@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import sessionReducer from '../../../redux/reducers/sessionReducer';
+import PropTypes from 'prop-types';
+import pT from '../../propTypes';
+import reduxPT from '../../propTypes/reduxPropTypes';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -62,6 +65,12 @@ class NavBar extends Component {
     </Navbar>
   }
 }
+
+let NavBarPT = pT.withRouter;
+NavBarPT = Object.assign(NavBarPT, reduxPT.currentUser);
+
+NavBar.propTypes = NavBarPT;
+
 
 const mapStateToProps = (state) => {
   return {

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
 import styles from './index.module.css';
 
-export default class Modal extends Component {
+class Modal extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -32,3 +33,12 @@ export default class Modal extends Component {
     </div>
   }
 }
+
+Modal.propTypes = {
+  handleClose: PropTypes.func,
+  show: PropTypes.bool,
+  title: PropTypes.string,
+  children: PropTypes.element,
+}
+
+export default Modal;

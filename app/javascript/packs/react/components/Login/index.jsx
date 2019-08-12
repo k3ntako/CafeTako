@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import sessionReducer from '../../../redux/reducers/sessionReducer';
+import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -55,6 +56,12 @@ class Login extends Component {
     </Modal>
 
   }
+}
+
+Login.propTypes = {
+  setCurrentUser: PropTypes.func,
+  handleClose: PropTypes.func,
+  show: PropTypes.bool,
 }
 
 const mapStateToProps = (state) => {
