@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import AddChainForm from './AddChainForm';
-import GoogleMapsForm from '../../components/GoogleMapsForm';
+import GoogleMapsForm from './GoogleMapsForm';
 
 import Chain from '../../models/Chain';
 import Location from '../../models/Location';

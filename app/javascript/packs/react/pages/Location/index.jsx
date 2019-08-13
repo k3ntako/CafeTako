@@ -11,7 +11,7 @@ import Col from 'react-bootstrap/Col';
 import User from '../../models/User';
 
 import BusinessHours from './BusinessHours';
-import GoogleMaps from '../../components/GoogleMapsForm/Map';
+import GoogleMaps from '../../components/GoogleMaps';
 import Reviews from './Reviews';
 import Location from '../../models/Location';
 

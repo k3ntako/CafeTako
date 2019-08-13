@@ -4,7 +4,7 @@ import sessionReducer from '../../../redux/reducers/sessionReducer';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
-import GoogleMaps from '../../components/GoogleMapsForm/Map';
+import GoogleMaps from '../../components/GoogleMaps';
 import Location from '../../models/Location';
 import LocationCard from './LocationCard';
 import SearchBar from './SearchBar';
@@ -89,7 +89,7 @@ class WelcomePage extends Component{
 
     const locationsToMap = searchResults.length ? searchResults : locations;
     const showMap = locationsToMap && !!locationsToMap.length;
-    const mapHTML = showMap && <GoogleMaps locations={locationsToMap} lat={lat || 0} lng={lng || 0} zoom={15}/>;
+    const mapHTML = showMap && <GoogleMaps locations={locationsToMap} lat={lat || 0} lng={lng || 0} zoom={13}/>;
 
 
     return <Container>

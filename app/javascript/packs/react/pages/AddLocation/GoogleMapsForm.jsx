@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
-import Map from './Map';
-import SearchBox from './SearchBox';
+import GoogleMaps from '../../components/GoogleMaps';
+import SearchBox from '../../components/GoogleMaps/SearchBox';
 import Location from '../../models/Location';
 
 
@@ -36,7 +36,7 @@ class GoogleMapsForm extends Component {
       <Form.Group>
         {this.state.place && <>
           <Form.Label>{ this.state.place.formatted_address }</Form.Label>
-          <Map
+          <GoogleMaps
             isMarkerShown
             place={this.state.place}
             locations={ this.props.locations || [] }/>
@@ -46,7 +46,7 @@ class GoogleMapsForm extends Component {
   }
 }
 
-GoogleMapsForm.propTypes = {
+GoogleMaps.propTypes = {
   onAddressChange: PropTypes.func,
   locations: PropTypes.arrayOf(PropTypes.instanceOf(Location))
 }

@@ -8,7 +8,7 @@ import TransitLayer from './TransitLayer';
 import ToggleButtons from './ToggleButtons';
 
 import Location from '../../models/Location';
-import styles from './map.module.css';
+import styles from './index.module.css';
 
 const coordsExist = (lat, lng) => {
   return (lat === 0 || (lat && typeof lat === "number")) &&

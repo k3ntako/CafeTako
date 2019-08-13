@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 
-import SearchBox from '../../components/GoogleMapsForm/SearchBox';
+import SearchBox from '../../components/GoogleMaps/SearchBox';
 import Location from '../../models/Location';
 import styles from './index.module.css';
 
