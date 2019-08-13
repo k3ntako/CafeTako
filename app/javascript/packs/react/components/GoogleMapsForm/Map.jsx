@@ -8,6 +8,7 @@ import TransitLayer from './TransitLayer';
 import ToggleButtons from './ToggleButtons';
 
 import Location from '../../models/Location';
+import styles from './map.module.css';
 
 const coordsExist = (lat, lng) => {
   return (lat === 0 || (lat && typeof lat === "number")) &&
@@ -31,7 +32,7 @@ class Map extends Component{
 
   static getDerivedStateFromProps(props, state){
     const areCoordsValid = coordsExist(props.lat, props.lng);
-    if( areCoordsValid && props.lat !== state.lat || props.lng !== state.lng ){
+    if( ( props.lat !== state.lat || props.lng !== state.lng ) && areCoordsValid ){
       return {
         lat: props.lat,
         lng: props.lng,
@@ -68,7 +69,7 @@ class Map extends Component{
     if( !coordsExist(lat, lng) ) return null;
 
     return <GoogleMap
-      defaultZoom={17}
+      defaultZoom={this.props.zoom}
       center={{ lat, lng }}
       options={{ mapTypeControl: false }}>
       { this.state.showBicycle && <BicyclingLayer autoUpdate /> }
@@ -84,25 +85,29 @@ class Map extends Component{
   }
 }
 
+Map.defaultProps = {
+  zoom: 17,
+};
+
 Map.propTypes = {
-  place: PropTypes.func,
+  // place: PropTypes.func,
   isMarkerShown: PropTypes.bool,
   locations: PropTypes.arrayOf(PropTypes.instanceOf(Location)),
   lat: PropTypes.number,
   lng: PropTypes.number,
+  zoom: PropTypes.number.isRequired,
   googleMapURL: PropTypes.string,
   loadingElement: PropTypes.element,
   containerElement: PropTypes.element,
   mapElement: PropTypes.element,
 }
 
-const WrappedMap = withScriptjs(withGoogleMap(Map));
+const WrappedMap = withGoogleMap(Map);
 
 export default (props) => {
   return <WrappedMap
     {...props}
-    googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyAVyB_KRIJxSXmogxPxaEpzOmqXH1T3KLU"
-    loadingElement={<div style={{ height: `100%` }} />}
-    containerElement={<div style={{ height: `400px` }} />}
-    mapElement={<div style={{ height: `100%` }} />} />
+    loadingElement={<div />}
+    containerElement={<div className={styles.mapContainer} />}
+    mapElement={<div className={styles.map}/>} />
 }

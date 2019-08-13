@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import sessionReducer from '../../../redux/reducers/sessionReducer';
 import PropTypes from 'prop-types';
 import { withScriptjs } from 'react-google-maps';
 import StandaloneSearchBox from 'react-google-maps/lib/components/places/StandaloneSearchBox';
@@ -16,6 +18,14 @@ class SearchBox extends Component{
   }
 
   render(){
+    const userLocation = this.props.userLocation;
+    let placeholder = this.props.placeholder || "";
+    if( this.props.useUserLocation && userLocation ){
+      const city = userLocation.newAddressComponents.sublocality_level_1;
+      const state = userLocation.newAddressComponents.administrative_area_level_1;
+      placeholder = `${city}, ${state}`;
+    }
+
     return <StandaloneSearchBox
       ref={(ref) => this.searchBox = ref}
       onPlacesChanged={this.onPlacesChanged}
@@ -25,9 +35,13 @@ class SearchBox extends Component{
           new google.maps.LatLng(40.891690, -73.759341)
         )
       }>
-        <Form.Control type="text" placeholder={this.props.placeholder || ""}/>
+        <Form.Control type="text" placeholder={placeholder}/>
       </StandaloneSearchBox>
   }
+}
+
+SearchBox.defaultProps = {
+  useUserLocation: false,
 }
 
 SearchBox.propTypes = {
@@ -36,14 +50,16 @@ SearchBox.propTypes = {
   googleMapURL: PropTypes.string,
   loadingElement: PropTypes.element,
   containerElement: PropTypes.element,
+  useUserLocation: PropTypes.bool,
 }
 
-const WrappedSearchBox = withScriptjs(SearchBox);
-
-export default (props) => {
-  return <WrappedSearchBox
-    {...props}
-    googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyAVyB_KRIJxSXmogxPxaEpzOmqXH1T3KLU"
-    loadingElement={<div style={{ height: `100%` }} />}
-    containerElement={<div style={{ height: `400px` }} />} />
+const mapStateToProps = (state) => {
+  return {
+    userLocation: state.googleMaps.userLocation,
+  }
 }
+
+export default connect(
+  mapStateToProps,
+  null
+)(SearchBox);

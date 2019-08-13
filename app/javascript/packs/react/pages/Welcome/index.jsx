@@ -24,10 +24,22 @@ class WelcomePage extends Component{
   }
 
   componentDidMount(){
-    Location.getAll().
-      then(locations => this.setState({
-        locations
-      }));
+    this.fetchLocationsForUserLocation();
+  }
+
+  componentDidUpdate(){
+    this.fetchLocationsForUserLocation();
+  }
+
+  fetchLocationsForUserLocation(){
+    if( !this.state.searched && !this.state.locations.length && this.props.userLocation ){
+      const lat = this.props.userLocation.geometry.location.lat();
+      const lng = this.props.userLocation.geometry.location.lng();
+
+      let locations;
+      const locationsPromise = Location.search("", lat, lng).
+        then(locations => this.setState({ locations }));
+    }
   }
 
   renderDefaultLocations(){
@@ -64,23 +76,26 @@ class WelcomePage extends Component{
 
   render(){
     const { searchResults, locations, place } = this.state;
-    let lat = this.props.userLocation.lat;
-    let lng = this.props.userLocation.lng;
+    const { userLocation, defaultLatLng } = this.props;
 
+    let lat, lng;
     if( place ){
       lat = place.geometry.location.lat();
       lng = place.geometry.location.lng();
+    }else if( userLocation ){
+      lat = userLocation.geometry.location.lat();
+      lng = userLocation.geometry.location.lng();
     }
 
     const locationsToMap = searchResults.length ? searchResults : locations;
     const showMap = locationsToMap && !!locationsToMap.length;
-    const mapHTML = showMap && <GoogleMaps locations={locationsToMap} lat={lat || 0} lng={lng || 0}/>;
+    const mapHTML = showMap && <GoogleMaps locations={locationsToMap} lat={lat || 0} lng={lng || 0} zoom={15}/>;
 
 
     return <Container>
       <h1 className={styles.brand}>CafeTako</h1>
       <SearchBar
-        place={place}
+        place={place || userLocation}
         onPlacesChanged={this.onPlacesChanged}
         updateSearchResults={this.updateSearchResults} />
       { mapHTML }
@@ -93,7 +108,7 @@ class WelcomePage extends Component{
 
 const mapStateToProps = (state) => {
   return {
-    userLocation: state.session.userLocation,
+    userLocation: state.googleMaps.userLocation,
   }
 }
 

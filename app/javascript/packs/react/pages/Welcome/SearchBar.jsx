@@ -71,7 +71,10 @@ export default class SearchBar extends Component{
             <i className="fas fa-map-marker-alt"></i>
           </InputGroup.Text>
         </InputGroup.Prepend>
-        <SearchBox onPlacesChanged={this.onPlacesChanged} placeholder="Location"/>
+        <SearchBox
+          useUserLocation
+          onPlacesChanged={this.onPlacesChanged}
+          placeholder="Location"/>
         <InputGroup.Append
           onClick={this.submit}
           className={this.isValid() ? styles.valid : ""}>
