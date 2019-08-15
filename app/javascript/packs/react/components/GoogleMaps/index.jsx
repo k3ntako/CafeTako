@@ -80,7 +80,7 @@ class Map extends Component{
         toggleTransit={this.toggleTransit} />
       <TransitLayer showTransit={this.state.showTransit} />
       {isMarkerShown && <Marker position={{ lat, lng }} />}
-      {locations && locations.length && <Markers locations={locations} />}
+      {locations && locations.length && <Markers locations={locations} markersProps={this.props.markersProps}/>}
     </GoogleMap>
   }
 }

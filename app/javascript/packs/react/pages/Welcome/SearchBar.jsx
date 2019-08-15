@@ -55,22 +55,14 @@ export default class SearchBar extends Component{
   render(){
     return <div className={styles.searchBar}>
       <InputGroup size="lg">
-        <InputGroup.Prepend>
-          <InputGroup.Text>
-            <i className="fas fa-coffee"></i>
-          </InputGroup.Text>
-        </InputGroup.Prepend>
+        <Prepend><i className="fas fa-coffee"></i></Prepend>
         <Form.Control
           type="search"
           placeholder="Find your cafe!"
           onChange={(e) => this.setState({ search: e.target.value })}
           onKeyPress={this.handleKeyPress}/>
 
-        <InputGroup.Prepend>
-          <InputGroup.Text>
-            <i className="fas fa-map-marker-alt"></i>
-          </InputGroup.Text>
-        </InputGroup.Prepend>
+        <Prepend><i className="fas fa-map-marker-alt"></i></Prepend>
         <SearchBox
           useUserLocation
           onPlacesChanged={this.onPlacesChanged}
@@ -85,4 +77,12 @@ export default class SearchBar extends Component{
       </InputGroup>
     </div>
   }
+}
+
+const Prepend = (props) => {
+  return <InputGroup.Prepend>
+    <InputGroup.Text>
+      { props.children }
+    </InputGroup.Text>
+  </InputGroup.Prepend>
 }

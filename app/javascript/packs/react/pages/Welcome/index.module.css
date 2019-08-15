@@ -32,3 +32,7 @@
   background-color: var(--blue);
   color: var(--white);
 }
+
+.selected{
+  border-color: var(--blue);
+}

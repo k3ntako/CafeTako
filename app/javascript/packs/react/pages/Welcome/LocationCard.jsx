@@ -16,7 +16,7 @@ export default (props) => {
   }
 
   return <Col className={styles.col} xs={12} sm={6} lg={4}>
-    <Card className={styles.card}>
+    <Card className={`${styles.card} ${props.className}`} onMouseOver={props.onMouseOver}>
       <Card.Body>
         <Card.Title className={styles.cardTitle}>
           <Link to={ props.location.locationURL }>

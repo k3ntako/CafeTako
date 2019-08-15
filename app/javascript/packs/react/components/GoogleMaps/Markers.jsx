@@ -16,10 +16,12 @@ class Markers extends Component{
   }
 
   render(){
+    const { openInfoWindow, onOpenInfoWindowChange } = this.props.markersProps;
+
     const markers = this.props.locations.map(loc => {
       let infoWindow;
-      if( this.state.openInfoWindow === loc.id ){
-        infoWindow = <InfoWindow onCloseClick={() => this.setState({ openInfoWindow: null })}>
+      if( openInfoWindow === loc.id ){
+        infoWindow = <InfoWindow onCloseClick={() => onOpenInfoWindowChange(null)}>
           <div>
             <Link to={`/chains/${loc.chain.id}/locations/${loc.id}`}>
               <strong>{loc.chain.name}</strong>
@@ -32,7 +34,7 @@ class Markers extends Component{
 
       return <Marker key={loc.id}
         position={{ lat: loc.lat, lng: loc.lng }}
-        onClick={() => this.setState({ openInfoWindow: loc.id })}>
+        onClick={() => onOpenInfoWindowChange(loc.id)}>
         { infoWindow }
       </Marker>
     })

@@ -20,6 +20,7 @@ class WelcomePage extends Component{
       locations: [],
       searchResults: [],
       searched: false,
+      openInfoWindow: null,
     }
   }
 
@@ -42,27 +43,29 @@ class WelcomePage extends Component{
     }
   }
 
-  renderDefaultLocations(){
-    if( !this.state.locations || !this.state.locations.length ){
-      return null;
-    }
-
-    return this.state.locations.map(location => {
-      return <LocationCard key={location.id} location={location} />
-    })
-  }
-
   renderSearchResults(){
-    if( this.state.searched && (!this.state.searchResults || !this.state.searchResults.length) ){
+    const { searched, searchResults, locations, openInfoWindow } = this.state;
+
+    if( searched && (!searchResults || !searchResults.length) ){
       return <div className={styles.noResults}>
         <h3>No Results</h3>
       </div>
-    }else if( !this.state.searchResults || !this.state.searchResults.length ){
-      return this.renderDefaultLocations();
     }
 
-    return this.state.searchResults.map(location => {
-      return <LocationCard key={location.id} location={location} />
+    const searchResultsLen = searchResults && searchResults.length;
+    const locationsToRender = searchResultsLen ? searchResults : locations;
+
+    if( !locationsToRender.length ){
+      return null;
+    }
+
+    return locationsToRender.map(location => {
+      const selectedStyles = openInfoWindow === location.id ? styles.selected : "";
+      return <LocationCard
+        key={location.id}
+        className={selectedStyles}
+        location={location}
+        onMouseOver={ () => this.setState({ openInfoWindow: location.id }) }/>
     })
   }
 
@@ -72,6 +75,10 @@ class WelcomePage extends Component{
 
   onPlacesChanged = ( place ) => {
     this.setState({ place });
+  }
+
+  onOpenInfoWindowChange = ( id ) => {
+    this.setState({ openInfoWindow: id });
   }
 
   render(){
@@ -87,9 +94,18 @@ class WelcomePage extends Component{
       lng = userLocation.geometry.location.lng();
     }
 
+    const markersProps = {
+      openInfoWindow: this.state.openInfoWindow,
+      onOpenInfoWindowChange: this.onOpenInfoWindowChange,
+    }
+
     const locationsToMap = searchResults.length ? searchResults : locations;
     const showMap = locationsToMap && !!locationsToMap.length;
-    const mapHTML = showMap && <GoogleMaps locations={locationsToMap} lat={lat || 0} lng={lng || 0} zoom={13}/>;
+    const mapHTML = showMap && <GoogleMaps
+      markersProps={markersProps}
+      locations={locationsToMap}
+      lat={lat || 0} lng={lng || 0}
+      zoom={13}/>;
 
 
     return <Container>

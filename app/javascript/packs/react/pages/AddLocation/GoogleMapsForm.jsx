@@ -24,8 +24,6 @@ class GoogleMapsForm extends Component {
     this.setState({ place });
   }
 
-
-
   render(){
     return <>
       <Form.Group>
