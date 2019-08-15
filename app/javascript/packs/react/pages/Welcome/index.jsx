@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/Row';
 
 import GoogleMaps from '../../components/GoogleMaps';
 import Location from '../../models/Location';
-import LocationCard from './LocationCard';
+import LocationCards from './LocationCards';
 import SearchBar from './SearchBar';
 
 import styles from './index.module.css';
@@ -43,32 +43,6 @@ class WelcomePage extends Component{
     }
   }
 
-  renderSearchResults(){
-    const { searched, searchResults, locations, openInfoWindow } = this.state;
-
-    if( searched && (!searchResults || !searchResults.length) ){
-      return <div className={styles.noResults}>
-        <h3>No Results</h3>
-      </div>
-    }
-
-    const searchResultsLen = searchResults && searchResults.length;
-    const locationsToRender = searchResultsLen ? searchResults : locations;
-
-    if( !locationsToRender.length ){
-      return null;
-    }
-
-    return locationsToRender.map(location => {
-      const selectedStyles = openInfoWindow === location.id ? styles.selected : "";
-      return <LocationCard
-        key={location.id}
-        className={selectedStyles}
-        location={location}
-        onMouseOver={ () => this.setState({ openInfoWindow: location.id }) }/>
-    })
-  }
-
   updateSearchResults = ( results ) => {
     this.setState({ searchResults: results, searched: true });
   }
@@ -82,7 +56,7 @@ class WelcomePage extends Component{
   }
 
   render(){
-    const { searchResults, locations, place } = this.state;
+    const { searched, searchResults, locations, place, openInfoWindow } = this.state;
     const { userLocation, defaultLatLng } = this.props;
 
     let lat, lng;
@@ -116,7 +90,12 @@ class WelcomePage extends Component{
         updateSearchResults={this.updateSearchResults} />
       { mapHTML }
       <Row className={styles.row}>
-        { this.renderSearchResults() }
+        <LocationCards
+          searched={searched}
+          searchResults={searchResults}
+          locations={locations}
+          openInfoWindow={openInfoWindow}
+          onMouseOver={ ( id ) => this.setState({ openInfoWindow: id }) }/>
       </Row>
     </Container>
   }
