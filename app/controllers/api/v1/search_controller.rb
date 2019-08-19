@@ -10,20 +10,25 @@ class Api::V1::SearchController < ApplicationController
     close_locations = Location.select("*, #{distance_formula} AS distance").where("#{distance_formula} < 25").order(:distance)
 
     if search_params[:search] && search_params[:search].strip.length > 0
+      # if there is a search string
       search_results = close_locations.chain_location_search(search_params[:search].downcase).limit(24)
     else
-      search_results = close_locations.limit(24);
+      # if not, return the 24 closest cafes
+      search_results = close_locations.limit(24)
     end
 
-    puts "search_results #{search_results.inspect}"
+    # last_modified = search_results.maximum(:updated_at)
 
-    render json: search_results
+    render json: {
+      locations: ActiveModel::Serializer::ArraySerializer.new(search_results),
+      # last_modified: last_modified,
+    }
   end
 
   private
 
   def search_params
-    params.permit(:search, :lat, :lng)
+    params.permit(:search, :lat, :lng, :last_modified)
   end
 
 end

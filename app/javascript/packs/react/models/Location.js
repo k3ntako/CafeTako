@@ -70,7 +70,7 @@ export default class Location{
 
   static search( searchString, lat, lng ){
     return FetchHelper.get(`/api/v1/search?search=${searchString}&lat=${lat}&lng=${lng}`)
-      .then(responseJSON => responseJSON.map(locJSON => new Location( locJSON )));
+      .then(responseJSON => responseJSON.locations.map(locJSON => new Location( locJSON )));
   }
 
   addReview( review ){
