@@ -25,7 +25,6 @@ export default (props) => {
     return <LocationCard
       key={location.id}
       className={selectedStyles}
-      location={location}
-      onMouseOver={ () => props.onMouseOver( location.id ) }/>
+      location={location} />
   })
 }

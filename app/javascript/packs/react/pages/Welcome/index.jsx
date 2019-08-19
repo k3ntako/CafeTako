@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import sessionReducer from '../../../redux/reducers/sessionReducer';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import GoogleMaps from '../../components/GoogleMaps';
 import Location from '../../models/Location';
@@ -21,7 +22,20 @@ class WelcomePage extends Component{
       searchResults: [],
       searched: false,
       openInfoWindow: null,
+      lat: null,
+      lng: null,
     }
+  }
+
+  static getDerivedStateFromProps( props, state ){
+    if( props.userLocation && (state.lat === null || state.lng === null) ){
+      return {
+        lat: props.userLocation.geometry.location.lat(),
+        lng: props.userLocation.geometry.location.lng(),
+      }
+    }
+
+    return null;
   }
 
   componentDidMount(){
@@ -48,25 +62,22 @@ class WelcomePage extends Component{
   }
 
   onPlacesChanged = ( place ) => {
-    this.setState({ place });
+    const lat = place.geometry.location.lat();
+    const lng = place.geometry.location.lng();
+    this.setState({ place, lat, lng });
   }
 
   onOpenInfoWindowChange = ( id ) => {
     this.setState({ openInfoWindow: id });
   }
 
-  render(){
-    const { searched, searchResults, locations, place, openInfoWindow } = this.state;
-    const { userLocation, defaultLatLng } = this.props;
+  onCenterChange = ( lat, lng ) => {
+    this.setState({ lat, lng });
+  }
 
-    let lat, lng;
-    if( place ){
-      lat = place.geometry.location.lat();
-      lng = place.geometry.location.lng();
-    }else if( userLocation ){
-      lat = userLocation.geometry.location.lat();
-      lng = userLocation.geometry.location.lng();
-    }
+  render(){
+    const { searched, searchResults, locations, place, openInfoWindow, lat, lng } = this.state;
+    const { userLocation, defaultLatLng } = this.props;
 
     const markersProps = {
       openInfoWindow: this.state.openInfoWindow,
@@ -76,6 +87,7 @@ class WelcomePage extends Component{
     const locationsToMap = searchResults.length ? searchResults : locations;
     const showMap = locationsToMap && !!locationsToMap.length;
     const mapHTML = showMap && <GoogleMaps
+      onCenterChange={this.onCenterChange}
       markersProps={markersProps}
       locations={locationsToMap}
       lat={lat || 0} lng={lng || 0}
@@ -88,14 +100,19 @@ class WelcomePage extends Component{
         place={place || userLocation}
         onPlacesChanged={this.onPlacesChanged}
         updateSearchResults={this.updateSearchResults} />
-      { mapHTML }
-      <Row className={styles.row}>
-        <LocationCards
-          searched={searched}
-          searchResults={searchResults}
-          locations={locations}
-          openInfoWindow={openInfoWindow}
-          onMouseOver={ ( id ) => this.setState({ openInfoWindow: id }) }/>
+      <Row>
+        <Col>
+          <Row className={styles.row}>
+            <LocationCards
+              searched={searched}
+              searchResults={searchResults}
+              locations={locations}
+              openInfoWindow={openInfoWindow} />
+          </Row>
+        </Col>
+        <Col>
+          { mapHTML }
+        </Col>
       </Row>
     </Container>
   }

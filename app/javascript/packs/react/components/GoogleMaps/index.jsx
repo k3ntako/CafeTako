@@ -62,6 +62,12 @@ class Map extends Component{
     this.setState( prevState => ({ showTransit: !prevState.showTransit }) )
   }
 
+  onCenterChange = ( lat, lng ) => {
+    if( (lat || lat === 0) && (lng || lng === 0) ){
+      this.props.onCenterChange( lat, lng );
+    }
+  }
+
   render(){
     const { lat, lng } = this.state;
     const { isMarkerShown, locations } = this.props;
@@ -80,7 +86,10 @@ class Map extends Component{
         toggleTransit={this.toggleTransit} />
       <TransitLayer showTransit={this.state.showTransit} />
       {isMarkerShown && <Marker position={{ lat, lng }} />}
-      {locations && locations.length && <Markers locations={locations} markersProps={this.props.markersProps}/>}
+      {locations && locations.length && <Markers
+        onPositionChange={this.onCenterChange}
+        locations={locations}
+        markersProps={this.props.markersProps}/>}
     </GoogleMap>
   }
 }
