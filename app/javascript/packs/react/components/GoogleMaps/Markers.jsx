@@ -20,7 +20,7 @@ class Markers extends Component{
 
     if( locationId ){
       const position = this.props.locations.find(loc => loc.id === locationId );
-      this.props.onPositionChange( position.lat, position.lng );
+      this.props.onCenterChange( position.lat, position.lng );
     }
   }
 

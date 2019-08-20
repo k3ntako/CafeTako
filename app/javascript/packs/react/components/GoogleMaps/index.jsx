@@ -9,36 +9,39 @@ import ToggleButtons from './ToggleButtons';
 import Location from '../../models/Location';
 import styles from './index.module.css';
 
-const coordsExist = (lat, lng) => {
-  return (lat === 0 || (lat && typeof lat === "number")) &&
-    (lng === 0 || (lng && typeof lng === "number"));
-}
-
 class Map extends Component{
   constructor(props){
     super(props);
 
-    const [ lat, lng ] = coordsExist(props.lat, props.lng) ?
-      [ props.lat, props.lng ] : [ null, null ];
-
     this.state = {
-      lat: lat,
-      lng: lng,
       showTransit: false,
       showBicycle: false,
     }
+    this.map = null;
   }
 
-  static getDerivedStateFromProps(props, state){
-    const areCoordsValid = coordsExist(props.lat, props.lng);
-    if( ( props.lat !== state.lat || props.lng !== state.lng ) && areCoordsValid ){
-      return {
-        lat: props.lat,
-        lng: props.lng,
-      }
-    }
+  componentDidMount = () => {
+    this.updateBounds();
+  }
 
-    return null
+  componentDidUpdate = () => {
+    this.updateBounds();
+  }
+
+  updateBounds = () => {
+    if( this.map && this.props.bounds ){
+      const newBounds = new google.maps.LatLngBounds(
+        {
+          lat: this.props.bounds.minLat,
+          lng: this.props.bounds.minLng,
+        },
+        {
+          lat: this.props.bounds.maxLat,
+          lng: this.props.bounds.maxLng,
+        }
+      );
+      this.map.fitBounds(newBounds);
+    }
   }
 
   toggleBicycle = () => {
@@ -49,20 +52,13 @@ class Map extends Component{
     this.setState( prevState => ({ showTransit: !prevState.showTransit }) )
   }
 
-  onCenterChange = ( lat, lng ) => {
-    if( (lat || lat === 0) && (lng || lng === 0) ){
-      this.props.onCenterChange( lat, lng );
-    }
-  }
-
   render(){
-    const { lat, lng } = this.state;
-
-    if( !coordsExist(lat, lng) ) return null;
+    const { lat, lng } = this.props;
 
     return <GoogleMap
+      ref={(ref) => this.map = ref}
       defaultZoom={this.props.zoom}
-      center={{ lat, lng }}
+      defaultCenter={{ lat, lng }}
       options={{ mapTypeControl: false }}>
       { this.state.showBicycle && <BicyclingLayer autoUpdate /> }
       <ToggleButtons

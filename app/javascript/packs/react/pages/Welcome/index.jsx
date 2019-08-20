@@ -25,6 +25,7 @@ class WelcomePage extends Component{
       openInfoWindow: null,
       lat: null,
       lng: null,
+      bounds: null,
     }
   }
 
@@ -54,12 +55,19 @@ class WelcomePage extends Component{
 
       let locations;
       const locationsPromise = Location.search("", lat, lng).
-        then(locations => this.setState({ locations }));
+        then(response => this.setState({
+          locations: response.locations,
+          bounds: response.bounds,
+        }));
     }
   }
 
   updateSearchResults = ( results ) => {
-    this.setState({ searchResults: results, searched: true });
+    this.setState({
+      searchResults: results.locations,
+      bounds: results.bounds,
+      searched: true,
+    });
   }
 
   onPlacesChanged = ( place ) => {
@@ -77,7 +85,7 @@ class WelcomePage extends Component{
   }
 
   render(){
-    const { searched, searchResults, locations, place, openInfoWindow, lat, lng } = this.state;
+    const { searched, searchResults, locations, place, openInfoWindow, lat, lng, bounds } = this.state;
     const { userLocation, defaultLatLng } = this.props;
 
     const markersProps = {
@@ -87,9 +95,9 @@ class WelcomePage extends Component{
 
     const locationsToMap = searchResults.length ? searchResults : locations;
     const showMap = locationsToMap && !!locationsToMap.length;
-    const mapHTML = showMap && <GoogleMaps lat={lat} lng={lng} zoom={13}>
+    const mapHTML = showMap && <GoogleMaps lat={lat} lng={lng} zoom={13} bounds={bounds}>
       <Markers
-        onPositionChange={this.onCenterChange}
+        onCenterChange={this.onCenterChange}
         locations={locations}
         markersProps={markersProps}/>
     </GoogleMaps>;

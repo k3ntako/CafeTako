@@ -70,7 +70,27 @@ export default class Location{
 
   static search( searchString, lat, lng ){
     return FetchHelper.get(`/api/v1/search?search=${searchString}&lat=${lat}&lng=${lng}`)
-      .then(responseJSON => responseJSON.locations.map(locJSON => new Location( locJSON )));
+      .then(responseJSON => {
+        const locations = responseJSON.locations.map(locJSON => new Location( locJSON ));
+        return {
+          locations,
+          bounds: Location.parseBounds( locations ),
+        }
+      });
+  }
+
+  static parseBounds( locations ){
+    let maxLat, maxLng, minLat, minLng;
+    locations.forEach(loc => {
+      maxLat = !maxLat || maxLat < loc.lat ? loc.lat : maxLat;
+      maxLng = !maxLng || maxLng < loc.lng ? loc.lng : maxLng;
+      minLat = !minLat || minLat > loc.lat ? loc.lat : minLat;
+      minLng = !minLng || minLng > loc.lng ? loc.lng : minLng;
+    });
+
+    return {
+      maxLat, maxLng, minLat, minLng,
+    }
   }
 
   addReview( review ){
