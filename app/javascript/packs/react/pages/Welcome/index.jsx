@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import GoogleMaps from '../../components/GoogleMaps';
+import Markers from '../../components/GoogleMaps/Markers';
 import Location from '../../models/Location';
 import LocationCards from './LocationCards';
 import SearchBar from './SearchBar';
@@ -86,13 +87,12 @@ class WelcomePage extends Component{
 
     const locationsToMap = searchResults.length ? searchResults : locations;
     const showMap = locationsToMap && !!locationsToMap.length;
-    const mapHTML = showMap && <GoogleMaps
-      onCenterChange={this.onCenterChange}
-      markersProps={markersProps}
-      locations={locationsToMap}
-      lat={lat || 0} lng={lng || 0}
-      zoom={13}/>;
-
+    const mapHTML = showMap && <GoogleMaps lat={lat} lng={lng} zoom={13}>
+      <Markers
+        onPositionChange={this.onCenterChange}
+        locations={locations}
+        markersProps={markersProps}/>
+    </GoogleMaps>;
 
     return <Container>
       <h1 className={styles.brand}>CafeTako</h1>

@@ -9,6 +9,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import User from '../../models/User';
+import { Marker } from 'react-google-maps';
 
 import BusinessHours from './BusinessHours';
 import GoogleMaps from '../../components/GoogleMaps';
@@ -52,6 +53,9 @@ class LocationPage extends Component{
       return null;
     }
 
+    const lat = location.lat;
+    const lng = location.lng;
+
     const reivewsHTML = location.reviews && !!location.reviews.length && <>
       <h3>Reviews</h3>
       <Reviews reviews={location.reviews} />
@@ -64,11 +68,9 @@ class LocationPage extends Component{
       </h3>}
       <Row>
         <Col md={12} lg={8}>
-          <GoogleMaps
-            isMarkerShown
-            address={location.address}
-            lat={ location.lat }
-            lng={ location.lng } />
+          <GoogleMaps lat={lat} lng={lng}>
+            <Marker position={{ lat, lng }} />
+          </GoogleMaps>
         </Col>
         <Col md={12} lg={4}>
           <BusinessHours businessHours={location.businessHours}/>
