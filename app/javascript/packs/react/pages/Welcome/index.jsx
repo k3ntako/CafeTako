@@ -110,7 +110,7 @@ class WelcomePage extends Component{
         updateSearchResults={this.updateSearchResults} />
       <Row>
         <Col>
-          <Row className={styles.row}>
+          <Row>
             <LocationCards
               searched={searched}
               searchResults={searchResults}
@@ -119,7 +119,9 @@ class WelcomePage extends Component{
           </Row>
         </Col>
         <Col>
-          { mapHTML }
+          <div className={styles.googleMaps}>
+            { mapHTML }
+          </div>
         </Col>
       </Row>
     </Container>

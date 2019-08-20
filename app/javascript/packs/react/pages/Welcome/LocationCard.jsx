@@ -15,7 +15,7 @@ export default (props) => {
     </Card.Text>
   }
 
-  return <Col className={styles.col} xs={12}>
+  return <Col className={styles.locationCard} xs={12}>
     <Card className={`${styles.card} ${props.className}`}>
       <Card.Body>
         <Card.Title className={styles.cardTitle}>

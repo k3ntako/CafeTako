@@ -1,8 +1,14 @@
-.col{
+.googleMaps{
+  position: sticky;
+  top: 1rem;
+  height: calc( 100vh - 2rem );
+}
+
+.locationCard{
   padding-top: 15px;
   padding-bottom: 15px;
 }
-.col > .card{
+.locationCard > .card{
   height: 100%;
 }
 .cardTitle{

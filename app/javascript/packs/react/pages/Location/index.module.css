@@ -1,3 +1,9 @@
 .dayName {
   padding-right: 1rem;
 }
+
+.googleMaps{
+  height: 100%;
+  min-height: 400px;
+  max-height: 80vh;
+}

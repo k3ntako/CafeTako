@@ -15,6 +15,7 @@ import BusinessHours from './BusinessHours';
 import GoogleMaps from '../../components/GoogleMaps';
 import Reviews from './Reviews';
 import Location from '../../models/Location';
+import styles from './index.module.css';
 
 class LocationPage extends Component{
   constructor(props){
@@ -68,9 +69,11 @@ class LocationPage extends Component{
       </h3>}
       <Row>
         <Col md={12} lg={8}>
-          <GoogleMaps lat={lat} lng={lng}>
-            <Marker position={{ lat, lng }} />
-          </GoogleMaps>
+          <div className={styles.googleMaps}>
+            <GoogleMaps lat={lat} lng={lng}>
+              <Marker position={{ lat, lng }} />
+            </GoogleMaps>
+          </div>
         </Col>
         <Col md={12} lg={4}>
           <BusinessHours businessHours={location.businessHours}/>
