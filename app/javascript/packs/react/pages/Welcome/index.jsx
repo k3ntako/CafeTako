@@ -98,7 +98,7 @@ class WelcomePage extends Component{
     const mapHTML = showMap && <GoogleMaps lat={lat} lng={lng} zoom={13} bounds={bounds}>
       <Markers
         onCenterChange={this.onCenterChange}
-        locations={locations}
+        locations={locationsToMap}
         markersProps={markersProps}/>
     </GoogleMaps>;
 
