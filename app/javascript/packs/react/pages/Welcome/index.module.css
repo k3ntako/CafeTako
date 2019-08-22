@@ -4,12 +4,8 @@
   height: calc( 100vh - 2rem );
 }
 
-.locationCard{
-  padding-top: 15px;
-  padding-bottom: 15px;
-}
-.locationCard > .card{
-  height: 100%;
+.card{
+  margin: 1rem 0;
 }
 .cardTitle{
   margin: 0;

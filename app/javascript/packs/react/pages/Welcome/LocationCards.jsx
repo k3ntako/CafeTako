@@ -5,7 +5,7 @@ import LocationCard from './LocationCard';
 import styles from './index.module.css';
 
 export default (props) => {
-  const { searched, searchResults, locations, openInfoWindow } = props;
+  const { searched, searchResults, locations, selectedLocation } = props;
 
   if( searched && (!searchResults || !searchResults.length) ){
     return <div className={styles.noResults}>
@@ -21,10 +21,11 @@ export default (props) => {
   }
 
   return locationsToRender.map(location => {
-    const selectedStyles = openInfoWindow === location.id ? styles.selected : "";
+    const selectedStyles = selectedLocation === location.id ? styles.selected : "";
     return <LocationCard
       key={location.id}
       className={selectedStyles}
-      location={location} />
+      location={location}
+      onSelectedLocationChange={props.onSelectedLocationChange}/>
   })
 }

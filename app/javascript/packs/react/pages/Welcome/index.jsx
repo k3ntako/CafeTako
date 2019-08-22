@@ -22,7 +22,7 @@ class WelcomePage extends Component{
       locations: [],
       searchResults: [],
       searched: false,
-      openInfoWindow: null,
+      selectedLocation: null,
       lat: null,
       lng: null,
       bounds: null,
@@ -76,30 +76,21 @@ class WelcomePage extends Component{
     this.setState({ place, lat, lng });
   }
 
-  onOpenInfoWindowChange = ( id ) => {
-    this.setState({ openInfoWindow: id });
-  }
-
-  onCenterChange = ( lat, lng ) => {
-    this.setState({ lat, lng });
+  onSelectedLocationChange = ( id ) => {
+    this.setState({ selectedLocation: id });
   }
 
   render(){
-    const { searched, searchResults, locations, place, openInfoWindow, lat, lng, bounds } = this.state;
+    const { searched, searchResults, locations, place, selectedLocation, lat, lng, bounds } = this.state;
     const { userLocation, defaultLatLng } = this.props;
-
-    const markersProps = {
-      openInfoWindow: this.state.openInfoWindow,
-      onOpenInfoWindowChange: this.onOpenInfoWindowChange,
-    }
 
     const locationsToMap = searchResults.length ? searchResults : locations;
     const showMap = locationsToMap && !!locationsToMap.length;
     const mapHTML = showMap && <GoogleMaps lat={lat} lng={lng} zoom={13} bounds={bounds}>
       <Markers
-        onCenterChange={this.onCenterChange}
         locations={locationsToMap}
-        markersProps={markersProps}/>
+        selectedLocation={selectedLocation}
+        onSelectedLocationChange={this.onSelectedLocationChange} />
     </GoogleMaps>;
 
     return <Container>
@@ -110,13 +101,12 @@ class WelcomePage extends Component{
         updateSearchResults={this.updateSearchResults} />
       <Row>
         <Col>
-          <Row>
-            <LocationCards
-              searched={searched}
-              searchResults={searchResults}
-              locations={locations}
-              openInfoWindow={openInfoWindow} />
-          </Row>
+          <LocationCards
+            searched={searched}
+            searchResults={searchResults}
+            locations={locations}
+            selectedLocation={selectedLocation}
+            onSelectedLocationChange={this.onSelectedLocationChange} />
         </Col>
         <Col>
           <div className={styles.googleMaps}>
