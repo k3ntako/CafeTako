@@ -24,21 +24,15 @@ class Map extends Component{
     this.updateBounds();
   }
 
-  componentDidUpdate = () => {
-    this.updateBounds();
+  componentDidUpdate = ( prevProps ) => {
+    const shouldUpdate = Object.keys(prevProps.bounds).some( key => prevProps.bounds[key] !== this.props.bounds[key] );
+    shouldUpdate && this.updateBounds();
   }
 
   updateBounds = () => {
     if( this.map && this.props.bounds ){
       const newBounds = new google.maps.LatLngBounds(
-        {
-          lat: this.props.bounds.minLat,
-          lng: this.props.bounds.minLng,
-        },
-        {
-          lat: this.props.bounds.maxLat,
-          lng: this.props.bounds.maxLng,
-        }
+        this.props.bounds[0], this.props.bounds[1]
       );
       this.map.fitBounds(newBounds);
     }
@@ -57,8 +51,8 @@ class Map extends Component{
 
     return <GoogleMap
       ref={(ref) => this.map = ref}
-      defaultZoom={this.props.zoom}
       defaultCenter={{ lat, lng }}
+      defaultZoom={this.props.defaultZoom}
       options={{ mapTypeControl: false }}>
       { this.state.showBicycle && <BicyclingLayer autoUpdate /> }
       <ToggleButtons
@@ -73,13 +67,13 @@ class Map extends Component{
 }
 
 Map.defaultProps = {
-  zoom: 17,
+  defaultZoom: 17,
 };
 
 Map.propTypes = {
   lat: PropTypes.number.isRequired,
   lng: PropTypes.number.isRequired,
-  zoom: PropTypes.number.isRequired,
+  defaultZoom: PropTypes.number.isRequired,
 }
 
 const WrappedMap = withGoogleMap(Map);

@@ -86,7 +86,7 @@ class WelcomePage extends Component{
 
     const locationsToMap = searchResults.length ? searchResults : locations;
     const showMap = locationsToMap && !!locationsToMap.length;
-    const mapHTML = showMap && <GoogleMaps lat={lat} lng={lng} zoom={13} bounds={bounds}>
+    const mapHTML = showMap && <GoogleMaps lat={lat} lng={lng} defaultZoom={13} bounds={bounds}>
       <Markers
         locations={locationsToMap}
         selectedLocation={selectedLocation}

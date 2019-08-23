@@ -68,7 +68,7 @@ export default class Location{
       .then(responseJSON => new Location( responseJSON ));
   }
 
-  static search( searchString, lat, lng ){
+  static search( searchString = "", lat, lng ){
     return FetchHelper.get(`/api/v1/search?search=${searchString}&lat=${lat}&lng=${lng}`)
       .then(responseJSON => {
         const locations = responseJSON.locations.map(locJSON => new Location( locJSON ));
@@ -88,9 +88,15 @@ export default class Location{
       minLng = !minLng || minLng > loc.lng ? loc.lng : minLng;
     });
 
-    return {
-      maxLat, maxLng, minLat, minLng,
-    }
+    return [
+      {
+        lat: minLat,
+        lng: minLng,
+      },{
+        lat: maxLat,
+        lng: maxLng,
+      }
+    ];
   }
 
   addReview( review ){

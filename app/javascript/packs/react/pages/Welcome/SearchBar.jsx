@@ -35,10 +35,9 @@ export default class SearchBar extends Component{
   }
 
   isValid(){
-    const { search } = this.state;
     const { place } = this.props;
 
-    return search && !!place;
+    return !!place;
   }
 
   onPlacesChanged = (place) => {
