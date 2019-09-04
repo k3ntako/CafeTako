@@ -3,18 +3,21 @@ import PropTypes from 'prop-types';
 
 import styles from './index.module.css';
 
-const convertMinToHours = ( min ) => {
-  let hour = Math.floor(min / 60);
-  hour = hour || 12; //if 0, change to 12
-  hour = hour > 12 ? hour - 12 : hour;
-  const hourStr = hour < 10 ? "0" + String(hour) : String(hour);
+const convertMinToHours = ( hours ) => {
+  if( !hours ) return [ null, null ];
+  return [ hours.open_time, hours.close_time ].map(time => {
+    let hour = Math.floor(min / 60);
+    hour = hour || 12; //if 0, change to 12
+    hour = hour > 12 ? hour - 12 : hour;
+    const hourStr = hour < 10 ? "0" + String(hour) : String(hour);
 
-  const minute = min % 60
-  const minuteStr = minute < 10 ? "0" + String(minute) : String(minute);
+    const minute = min % 60
+    const minuteStr = minute < 10 ? "0" + String(minute) : String(minute);
 
-  const amPM = min < 720 ? "AM" : "PM";
+    const amPM = min < 720 ? "AM" : "PM";
 
-  return `${hourStr}:${minuteStr} ${amPM}`
+    return `${hourStr}:${minuteStr} ${amPM}`;
+  });
 }
 
 const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -22,13 +25,18 @@ const BusinessHours = (props) => {
   const { businessHours } = props;
 
   const businessHoursHTML = daysOfWeek.map(day => {
-    const openTimeStr = convertMinToHours(businessHours[day].open_time)
-    const closeTimeStr = convertMinToHours(businessHours[day].close_time)
+    const [ openTimeStr, closeTimeStr ] = convertMinToHours(businessHours[day]);
+
+    let hours = <td>{openTimeStr} to {closeTimeStr}</td>
+    if( !openTimeStr || !closeTimeStr ){
+      hours = <td>Unknown</td>
+    }
+
     return <tr key={day}>
       <td className={styles.dayName}>{day}</td>
-      <td>{openTimeStr} to {closeTimeStr}</td>
+      { hours }
     </tr>
-  })
+  });
 
   return <div>
     <h4>Hours</h4>

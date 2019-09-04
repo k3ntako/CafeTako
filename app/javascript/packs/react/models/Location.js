@@ -7,7 +7,15 @@ export default class Location{
     this._chain = chain;
     this._id = id;
     this._name = name;
-    this._address = address;
+    this._address = {
+      addressPart1: address.address_part_1,
+      addressPart2: address.address_part_2,
+      addressPart3: address.address_part_3,
+      city: address.city,
+      state: address.state,
+      zipcode: address.zipcode,
+      country: address.country,
+    };
     this._businessHours = business_hours || {};
     this._reviews = reviews || [];
     this._lat = Number(lat);
@@ -31,12 +39,54 @@ export default class Location{
     return `${this._chain.name} (${this._name})`;
   }
   get chainAndLocationNames(){ return [ this._chain.name, this._name ]; }
+  get fullAddress(){
+    const { addressPart1, addressPart2, city, state, zipcode } = this._address;
+    return `${addressPart1} ${addressPart2 || ""} ${city}, ${state} ${zipcode}`;
+  }
+  get streetAddress(){
+    const { addressPart1, addressPart2 } = this._address;
+    return `${addressPart1} ${addressPart2 || ""}`;
+  }
+  get municipalityAddress(){
+    const { city, state, zipcode } = this._address;
+    return `${city}, ${state} ${zipcode}`;
+  }
+
+  static validateAddress( address ){
+    if( !address ){
+      console.warn("address is required and should be an object.");
+      return false;
+    }
+
+    ["addressPart1", "city", "state", "zipcode", "country"].forEach(key => {
+      const val = address[key];
+      if( !val || typeof val !== "string" || !val.trim().length ){
+        console.warn(`${key} is required`);
+        return false;
+      };
+    });
+
+    if( !/^[\d+]{5}$/.test(address.zipcode) ){
+      console.warn("Zipcode has to be a five character long string of digits");
+      return false;
+    };
+
+    ["addressPart2", "addressPart3"].forEach(key => {
+      const val = address[key];
+      if( val && typeof val !== "string"){
+        console.warn(`${key} and addressPart3 has to be a string`);
+        return false;
+      }
+    });
+
+    return true;
+  }
 
   static create( props ){
     const { name, address, businessHours, lat, lng } = props;
     const chain = Number(props.chain)
 
-    if( !name || !address ){
+    if( !name || !Location.validateAddress(address) ){
       console.error("Invalid name or address.");
       return null;
     }else if( !chain || isNaN(chain) ){
@@ -44,8 +94,10 @@ export default class Location{
       return null;
     }
 
+    const rubyAddress = FetchHelper.convertToRubySyntax(address);
+
     return FetchHelper.post(`/api/v1/chains/${chain}/locations`, {
-      name, address, businessHours, lat, lng
+      name, address: rubyAddress, businessHours, lat, lng
     }).then(responseJSON => {
       let propsWithId = Object.assign({}, props, responseJSON);
       return new Location( propsWithId );

@@ -27,7 +27,7 @@ export default (props) => {
         </Link>
       </Card.Title>
       { locationNameHTML  }
-      <Card.Text>{ location.address }</Card.Text>
+      <Card.Text>{ location.fullAddress }</Card.Text>
     </Card.Body>
   </Card>
 }

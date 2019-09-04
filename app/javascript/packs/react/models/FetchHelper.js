@@ -17,7 +17,7 @@ const post = (url, params) => {
 convertToRubySyntax = ( object ) => {
   const rubyObject = {};
   Object.keys(object).forEach(key => {
-    const rubyKey = key.replace(new RegExp("([A-Z])", 'g'), "_$1").toLowerCase();
+    const rubyKey = key.replace(/([A-Z]|(\d+))/g, "_$1").toLowerCase();
     rubyObject[rubyKey] = object[key];
   });
 

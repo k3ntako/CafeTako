@@ -42,7 +42,7 @@ class LocationPage extends Component{
 
     return <>
       <h3>{location.name}</h3>
-      <div>{location.address}</div>
+      <div>{location.fullAddress}</div>
     </>
   }
 

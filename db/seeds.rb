@@ -19,7 +19,15 @@ chain = Chain.create({
 
 Location.create({
   name: "Kentaro's Cafe",
-  address: "1 Main St. Brooklyn, NY 11217",
+  address: {
+    address_part_1: "1 Main St.",
+    address_part_2: nil,
+    address_part_3: nil,
+    city: "Brooklyn",
+    state: "NY",
+    zipcode: 11217,
+    country: "US",
+  },
   chain: chain,
   lat: 40.753741,
   lng: -74.002029,

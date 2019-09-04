@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2019_07_31_143614) do
 
   create_table "locations", force: :cascade do |t|
     t.string "name", null: false
-    t.string "address", null: false
+    t.jsonb "address", default: {"city"=>nil, "state"=>nil, "country"=>nil, "zipcode"=>nil, "address_part_1"=>nil, "address_part_2"=>nil, "address_part_3"=>nil}, null: false
     t.jsonb "business_hours", default: {"friday"=>nil, "monday"=>nil, "sunday"=>nil, "tuesday"=>nil, "saturday"=>nil, "thursday"=>nil, "wednesday"=>nil}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

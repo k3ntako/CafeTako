@@ -16,7 +16,15 @@ class AddLocationForm extends Component {
     super(props);
     this.state = {
       name: "",
-      address: "",
+      address: {
+        addressPart1: null,
+        addressPart2: null,
+        addressPart3: null,
+        city: null,
+        state: null,
+        zipcode: null,
+        country: null,
+      },
       lat: null,
       lng: null,
       chain: "new",

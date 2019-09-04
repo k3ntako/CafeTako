@@ -18,12 +18,33 @@ class GoogleMapsForm extends Component {
 
   onPlacesChanged = (place) => {
     this.props.onAddressChange({
-      address: place.formatted_address,
+      address: this.parsePlaceAddress( place.address_components ),
       lat: place.geometry.location.lat(),
       lng: place.geometry.location.lng(),
     });
 
     this.setState({ place });
+  }
+
+  parsePlaceAddress = (addressComponents) => {
+    if( !addressComponents ) return null;
+
+    let parsedAddress = {};
+    const types = ["street_number", "route", "sublocality_level_1", "locality", "administrative_area_level_1", "country", "postal_code"];
+    addressComponents.forEach(component => {
+      const componentType = component.types.find(compType => !!types.includes(compType));
+      parsedAddress[componentType] = component.short_name;
+    });
+
+    return {
+      addressPart1: `${parsedAddress.street_number} ${parsedAddress.route}`.trim(),
+      addressPart2: null,
+      addressPart3: null,
+      city: parsedAddress.sublocality_level_1 || parsedAddress.locality,
+      state: parsedAddress.administrative_area_level_1,
+      zipcode: String(parsedAddress.postal_code),
+      country: parsedAddress.country,
+    }
   }
 
   render(){

@@ -25,8 +25,10 @@ class Map extends Component{
   }
 
   componentDidUpdate = ( prevProps ) => {
-    const shouldUpdate = Object.keys(prevProps.bounds).some( key => prevProps.bounds[key] !== this.props.bounds[key] );
-    shouldUpdate && this.updateBounds();
+    if( prevProps.bounds && this.props.bounds ){
+      const shouldUpdate = Object.keys(prevProps.bounds).some( key => prevProps.bounds[key] !== this.props.bounds[key] );
+      shouldUpdate && this.updateBounds();
+    }
   }
 
   updateBounds = () => {
