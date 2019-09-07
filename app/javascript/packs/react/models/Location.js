@@ -151,6 +151,17 @@ export default class Location{
     ];
   }
 
+  static uploadCSV( csv, chain, newChainName ){
+    const params = { csv };
+    if( chain !== "new" ){
+      params.chain_id = chain;
+    }else{
+      params.new_chain_name = newChainName;
+    }
+
+    return FetchHelper.post(`/api/v1/locations/csv_upload`, params)
+  }
+
   addReview( review ){
     this._reviwews.push(review);
   }

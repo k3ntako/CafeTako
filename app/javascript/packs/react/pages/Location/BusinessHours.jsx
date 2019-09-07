@@ -5,7 +5,7 @@ import styles from './index.module.css';
 
 const convertMinToHours = ( hours ) => {
   if( !hours ) return [ null, null ];
-  return [ hours.open_time, hours.close_time ].map(time => {
+  return [ hours.open_time, hours.close_time ].map(min => {
     let hour = Math.floor(min / 60);
     hour = hour || 12; //if 0, change to 12
     hour = hour > 12 ? hour - 12 : hour;

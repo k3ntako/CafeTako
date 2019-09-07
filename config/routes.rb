@@ -9,6 +9,8 @@ Rails.application.routes.draw do
         end
       end
 
+      match 'locations/csv_upload', to: 'locations#csv_upload', via: :post
+
       match 'search', to: 'search#search', via: :get
 
       resources :users, only: [:index, :create]
@@ -21,6 +23,7 @@ Rails.application.routes.draw do
   end
 
   get '/locations/new', to: 'home#index'
+  get '/locations/csv_upload', to: 'home#index'
   get '/chains/:chain_id/locations/:id', to: 'home#index'
   get '/chains/:chain_id/locations/:id/review', to: 'home#index'
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_31_143614) do
+ActiveRecord::Schema.define(version: 2019_09_07_152917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2019_07_31_143614) do
     t.bigint "chain_id"
     t.decimal "lat", default: "0.0", null: false
     t.decimal "lng", default: "0.0", null: false
+    t.boolean "is_open", default: true, null: false
     t.index ["chain_id"], name: "index_locations_on_chain_id"
   end
 
