@@ -26,6 +26,7 @@ class WelcomePage extends Component{
       lat: null,
       lng: null,
       bounds: null,
+      locationChanged: false,
     }
   }
 
@@ -34,6 +35,7 @@ class WelcomePage extends Component{
       return {
         lat: props.userLocation.geometry.location.lat(),
         lng: props.userLocation.geometry.location.lng(),
+        locationChanged: true,
       }
     }
 
@@ -45,7 +47,11 @@ class WelcomePage extends Component{
   }
 
   componentDidUpdate(){
-    this.fetchLocationsForUserLocation();
+    if( this.state.locationChanged ){
+      this.setState({
+        locationChanged: false
+      }, this.fetchLocationsForUserLocation);
+    }
   }
 
   fetchLocationsForUserLocation(){

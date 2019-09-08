@@ -11,16 +11,16 @@ class Api::V1::SearchController < ApplicationController
 
     if search_params[:search] && search_params[:search].strip.length > 0
       # if there is a search string
-      search_results = close_locations.chain_location_search(search_params[:search].downcase).limit(24)
+      search_results = close_locations.chain_location_search(search_params[:search].downcase)
     else
       # if not, return the 24 closest cafes
-      search_results = close_locations.limit(24)
+      search_results = close_locations
     end
 
     # last_modified = search_results.maximum(:updated_at)
 
     render json: {
-      locations: ActiveModel::Serializer::ArraySerializer.new(search_results),
+      locations: ActiveModel::Serializer::ArraySerializer.new(search_results.limit(20)),
       # last_modified: last_modified,
     }
   end
