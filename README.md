@@ -1,5 +1,5 @@
 # CafeTako
-CafeTako is a website for reviewing and discovering cafes as workspaces. I noticed that not all Starbucks are created equally. Some are better suited for getting work done compared to others.
+CafeTako is a website for reviewing and discovering cafes as workspaces. I noticed that not all Starbucks are created equally. Some are better suited for getting work done compared to others. Demo can be found [here](https://cafetako.herokuapp.com/).
 
 ## Getting Started
 1. Install dependencies:
