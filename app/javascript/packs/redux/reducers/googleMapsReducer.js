@@ -21,6 +21,7 @@ const DEFAULT_PLACE = {
 };
 
 const initialState = {
+  defaultPlace: DEFAULT_PLACE,
   userLocation: null
 };
 

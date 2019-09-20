@@ -83,20 +83,28 @@ class WelcomePage extends Component{
   }
 
   onSelectedLocationChange = ( id ) => {
-    this.setState({ selectedLocation: id });
+    if( id !== this.state.selectedLocation ){
+      this.setState({ selectedLocation: id });
+    }
   }
 
   render(){
+    if( !google || !google.maps ){
+      console.warn("Google Maps hasn't loaded");
+      return null;
+    }
+
     const { searched, searchResults, locations, place, selectedLocation, lat, lng, bounds } = this.state;
     const { userLocation, defaultLatLng } = this.props;
+    const defaultLocation = this.props.defaultPlace.geometry.location;
 
     const locationsToMap = searchResults.length ? searchResults : locations;
-    const showMap = locationsToMap && !!locationsToMap.length;
-    const mapHTML = showMap && <GoogleMaps lat={lat} lng={lng} defaultZoom={13} bounds={bounds}>
-      <Markers
-        locations={locationsToMap}
-        selectedLocation={selectedLocation}
-        onSelectedLocationChange={this.onSelectedLocationChange} />
+    const markers = locationsToMap && !!locationsToMap.length && <Markers
+      locations={locationsToMap}
+      selectedLocation={selectedLocation}
+      onSelectedLocationChange={this.onSelectedLocationChange} />;
+    const mapHTML = <GoogleMaps lat={lat || defaultLocation.lat()} lng={lng || defaultLocation.lng()} defaultZoom={13} bounds={bounds}>
+      { markers }
     </GoogleMaps>;
 
     return <Container>
@@ -127,6 +135,7 @@ class WelcomePage extends Component{
 const mapStateToProps = (state) => {
   return {
     userLocation: state.googleMaps.userLocation,
+    defaultPlace: state.googleMaps.defaultPlace,
   }
 }
 

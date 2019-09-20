@@ -17,7 +17,9 @@ export default (props) => {
   const locationsToRender = searchResultsLen ? searchResults : locations;
 
   if( !locationsToRender.length ){
-    return null;
+    return <div className={styles.loading}>
+      <i className="fas fa-spinner"></i>
+    </div>
   }
 
   return locationsToRender.map(location => {

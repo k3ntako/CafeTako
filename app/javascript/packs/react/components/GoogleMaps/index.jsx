@@ -53,7 +53,7 @@ class Map extends Component{
 
     return <GoogleMap
       ref={(ref) => this.map = ref}
-      defaultCenter={{ lat, lng }}
+      center={{ lat, lng }}
       defaultZoom={this.props.defaultZoom}
       options={{ mapTypeControl: false }}>
       { this.state.showBicycle && <BicyclingLayer autoUpdate /> }
