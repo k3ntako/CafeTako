@@ -1,19 +1,7 @@
 class LocationSerializer < ActiveModel::Serializer
-  attributes :id, :name, :address, :business_hours, :chain, :lat, :lng, :distance
+  attributes :id, :name, :address, :lat, :lng, :distance
 
-  has_many :reviews
-
-  def business_hours
-    business_hours_with_times = {}
-    object[:business_hours].each do |key, value|
-      if value.is_a? Numeric
-        business_hours_with_times[key] = BusinessHour.find(value)
-      else
-        business_hours_with_times[key] = nil
-      end
-    end
-    business_hours_with_times
-  end
+  belongs_to :chain
 
   def deg_to_rad(d)
     d * Math::PI / 180

@@ -18,10 +18,9 @@ class Api::V1::SearchController < ApplicationController
     end
 
     # last_modified = search_results.maximum(:updated_at)
-
+    locations = search_results.limit(20)
     render json: {
-      locations: ActiveModel::Serializer::ArraySerializer.new(search_results.limit(20)),
-      # last_modified: last_modified,
+      locations: ActiveModel::Serializer::ArraySerializer.new(locations)
     }
   end
 
