@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
+import styles from './Rating.module.css';
 
 const FA_ICONS = ["fa-angry", "fa-frown", "fa-meh", "fa-smile", "fa-grin-hearts"]
 
@@ -15,28 +16,31 @@ const Rating = (props) => {
     icon = FA_ICONS[activeScore - 1];
   }
 
-  const onClickHandler = (e) => {
-    const newScore = Number(e.target.attributes.value.value);
+  const onMouseOverHandler = (newScore) => {
     setMouseOverScore(newScore);
     props.onChange(newScore);
   }
 
   const smileys = [1,2,3,4,5].map(idx => {
     const type = idx <= activeScore ? "fas" : "far";
-    return <i
-      key={idx}
-      className={`fa-3x ${type} ${icon}`}
-      value={String(idx)}
-      onClick={ (e) => setScore(Number(e.target.attributes.value.value)) }
-      onMouseOver={ onClickHandler }
-      onMouseOut={ () => setMouseOverScore(null) }>
-    </i>
+    return <div
+      key={`${activeScore} ${idx}`}
+      className={styles.faceIcon}
+      onClick={ () => setScore(idx) }
+      onMouseOver={ () => onMouseOverHandler(idx) }>
+      <i className={`fa-3x ${type} ${icon}`}></i>
+    </div>
+
   })
 
   return <Form.Group>
     <Form.Label>Score</Form.Label>
     <div>
-      { smileys }
+      <div
+        className={styles.iconWrapper}
+        onMouseLeave={ () => setMouseOverScore(null) }>
+        { smileys }
+      </div>
     </div>
   </Form.Group>
 }
