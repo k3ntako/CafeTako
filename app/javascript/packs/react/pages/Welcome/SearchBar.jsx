@@ -21,16 +21,21 @@ export default class SearchBar extends Component{
     }
   }
 
-  submit = () => {
-    if( this.isValid() ){
-      const { search } = this.state;
-      const { place } = this.props;
+  submit = async () => {
+    try{
+      if( this.isValid() ){
+        const { search } = this.state;
+        const { place, disableRefresh } = this.props;
+        await disableRefresh();
 
-      const lat = place.geometry.location.lat();
-      const lng = place.geometry.location.lng();
+        const lat = place.geometry.location.lat();
+        const lng = place.geometry.location.lng();
 
-      Location.search( search, lat, lng )
-        .then(results => this.props.updateSearchResults(results));
+        Location.search( search, lat, lng )
+          .then(results => this.props.updateSearchResults(results, search));
+      }
+    }catch( err ){
+      console.error(err);
     }
   }
 

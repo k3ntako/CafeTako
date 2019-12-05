@@ -27,6 +27,7 @@ class WelcomePage extends Component{
       lng: null,
       bounds: null,
       locationChanged: false,
+      refreshDisabled: true,
     }
   }
 
@@ -64,15 +65,28 @@ class WelcomePage extends Component{
         then(response => this.setState({
           locations: response.locations,
           bounds: response.bounds,
+          refreshDisabled: false,
         }));
     }
   }
 
-  updateSearchResults = ( results ) => {
+  disableRefresh = async () =>{
+    await this.setState({ refreshDisabled: true });
+  }
+
+  refreshHandler = () => {
+    const { lat, lng, searchTerm } = this.state;
+    Location.search( searchTerm, lat, lng )
+      .then(results => this.updateSearchResults(results, searchTerm));
+  }
+
+  updateSearchResults = ( results, searchTerm ) => {
     this.setState({
       searchResults: results.locations,
       bounds: results.bounds,
       searched: true,
+      searchTerm: searchTerm,
+      refreshDisabled: false,
     });
   }
 
@@ -103,7 +117,13 @@ class WelcomePage extends Component{
       locations={locationsToMap}
       selectedLocation={selectedLocation}
       onSelectedLocationChange={this.onSelectedLocationChange} />;
-    const mapHTML = <GoogleMaps lat={lat || defaultLocation.lat()} lng={lng || defaultLocation.lng()} defaultZoom={13} bounds={bounds}>
+    const mapHTML = <GoogleMaps
+      lat={lat || defaultLocation.lat()}
+      lng={lng || defaultLocation.lng()}
+      defaultZoom={13}
+      bounds={bounds}
+      refreshHandler={this.refreshHandler}
+      refreshDisabled={this.state.refreshDisabled}>
       { markers }
     </GoogleMaps>;
 
@@ -112,7 +132,8 @@ class WelcomePage extends Component{
       <SearchBar
         place={place || userLocation}
         onPlacesChanged={this.onPlacesChanged}
-        updateSearchResults={this.updateSearchResults} />
+        updateSearchResults={this.updateSearchResults}
+        disableRefresh={this.disableRefresh}/>
       <Row>
         <Col>
           <LocationCards

@@ -5,6 +5,7 @@ import { BicyclingLayer, GoogleMap, withGoogleMap } from 'react-google-maps';
 //react-google-maps offers bicycling layer but not transit layer
 import TransitLayer from './TransitLayer';
 import ToggleButtons from './ToggleButtons';
+import RefreshButton from './RefreshButton';
 
 import Location from '../../models/Location';
 import styles from './index.module.css';
@@ -56,6 +57,9 @@ class Map extends Component{
       center={{ lat, lng }}
       defaultZoom={this.props.defaultZoom}
       options={{ mapTypeControl: false }}>
+      <RefreshButton
+        refreshHandler={ this.props.refreshHandler }
+        disabled={ this.props.disabled } />
       { this.state.showBicycle && <BicyclingLayer autoUpdate /> }
       <ToggleButtons
         showBicycle={this.state.showBicycle}
